@@ -23,7 +23,7 @@ const Index = () => {
       />
       
       {/* About Section */}
-      <section className="fullscreen-section section-padding bg-akama-light" id="about">
+      <section className="section-padding bg-akama-light" id="about">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2">
@@ -71,7 +71,7 @@ const Index = () => {
       </section>
       
       {/* Services Highlight Section */}
-      <section className="fullscreen-section section-padding" id="services">
+      <section className="section-padding" id="services">
         <div className="container mx-auto">
           <AnimatedSection className="text-center mb-12">
             <span className="inline-block py-1 px-3 mb-3 text-sm font-medium rounded-full bg-akama-red/10 text-akama-red">
@@ -142,7 +142,7 @@ const Index = () => {
       </section>
       
       {/* CTA Section */}
-      <section className="fullscreen-section py-20 bg-akama-dark text-white">
+      <section className="py-20 bg-akama-dark text-white">
         <div className="container mx-auto px-4">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">

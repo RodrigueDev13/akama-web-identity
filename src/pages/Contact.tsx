@@ -14,24 +14,13 @@ const Contact = () => {
   return (
     <PageLayout>
       {/* Header */}
-      <section className="fullscreen-section pt-32 pb-16 relative">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop"
-            alt="Contact background"
-            className="w-full h-full object-cover"
-            loading="eager"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-akama-dark/80 to-akama-dark/60" />
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="pt-32 pb-16 bg-gradient-to-b from-akama-purple/10 to-white">
+        <div className="container mx-auto px-4">
           <AnimatedSection className="text-center max-w-3xl mx-auto">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 text-white">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 text-akama-dark">
               Contactez-Nous
             </h1>
-            <p className="text-white/80 text-lg">
+            <p className="text-akama-gray text-lg">
               Nous sommes à votre disposition pour répondre à vos questions et vous accompagner dans vos projets.
               N'hésitez pas à nous contacter par le moyen qui vous convient le mieux.
             </p>
@@ -40,18 +29,8 @@ const Contact = () => {
       </section>
       
       {/* Contact Info & Form */}
-      <section className="fullscreen-section py-12 md:py-20 relative">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2070&auto=format&fit=crop"
-            alt="Contact form background"
-            className="w-full h-full object-cover opacity-10"
-            loading="lazy"
-          />
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-12 md:py-20">
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}
             <AnimatedSection>
@@ -60,7 +39,7 @@ const Contact = () => {
                   Nos Coordonnées
                 </h2>
                 
-                <div className="glass p-6 rounded-xl shadow-sm">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-start">
                     <div className="bg-akama-purple/10 p-3 rounded-lg mr-4">
                       <MapPin size={24} className="text-akama-purple" />
@@ -76,7 +55,7 @@ const Contact = () => {
                   </div>
                 </div>
                 
-                <div className="glass p-6 rounded-xl shadow-sm">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-start">
                     <div className="bg-akama-purple/10 p-3 rounded-lg mr-4">
                       <Phone size={24} className="text-akama-purple" />
@@ -97,7 +76,7 @@ const Contact = () => {
                   </div>
                 </div>
                 
-                <div className="glass p-6 rounded-xl shadow-sm">
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-start">
                     <div className="bg-akama-purple/10 p-3 rounded-lg mr-4">
                       <Mail size={24} className="text-akama-purple" />
@@ -127,7 +106,7 @@ const Contact = () => {
             
             {/* Contact Form */}
             <AnimatedSection delay={100}>
-              <div className="glass p-8 rounded-xl shadow-sm">
+              <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
                 <h2 className="text-2xl font-serif font-semibold text-akama-dark mb-6">
                   Envoyez-nous un message
                 </h2>
