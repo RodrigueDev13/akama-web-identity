@@ -26,16 +26,16 @@ const Navbar = () => {
     <NavLink
       to={to}
       className={({ isActive }) => 
-        `relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-akama-purple ${
+        `relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-akama-red ${
           isActive 
-            ? "text-akama-purple" 
+            ? "text-akama-red" 
             : "text-akama-dark"
         }`
       }
       onClick={() => setIsMenuOpen(false)}
     >
       {label}
-      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-akama-purple transition-all duration-300 group-hover:w-full" />
+      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-akama-red transition-all duration-300 group-hover:w-full" />
     </NavLink>
   );
   
@@ -47,9 +47,11 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         <NavLink to="/" className="flex items-center space-x-2">
-          <span className="text-xl font-serif font-bold tracking-tight text-akama-dark">
-            AKAMA<span className="text-akama-purple">GROUPE</span>
-          </span>
+          <img 
+            src="/lovable-uploads/05e85c94-bcb4-478a-bd11-ac8046bbb068.png" 
+            alt="AKAMA GROUPE Logo" 
+            className="h-8 w-auto"
+          />
         </NavLink>
         
         {/* Desktop Navigation */}

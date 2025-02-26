@@ -16,14 +16,14 @@ const Index = () => {
     <PageLayout>
       {/* Hero Section */}
       <HeroSection
-        title={<>Bienvenue chez <span className="text-akama-purple">AKAMA GROUPE</span></>}
+        title={<>Bienvenue chez <span className="text-akama-red">AKAMA GROUPE</span></>}
         subtitle="Nous accompagnons votre transformation numérique avec des solutions adaptées à vos besoins"
         buttonLabel="Découvrir nos services"
         buttonLink="#services"
       />
       
       {/* About Section */}
-      <section className="section-padding bg-gray-50" id="about">
+      <section className="section-padding bg-akama-light" id="about">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2">
@@ -41,7 +41,7 @@ const Index = () => {
                 </p>
                 <Link 
                   to="/history" 
-                  className="inline-flex items-center text-akama-purple font-medium hover:underline"
+                  className="inline-flex items-center text-akama-red font-medium hover:underline"
                 >
                   En savoir plus sur notre histoire
                   <svg className="ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +60,7 @@ const Index = () => {
                   />
                   <div className="absolute -bottom-5 -left-5 bg-white p-4 rounded-lg shadow-md">
                     <p className="text-akama-dark font-serif font-medium">
-                      Fondée en <span className="text-akama-purple font-bold">2011</span>
+                      Fondée en <span className="text-akama-red font-bold">2011</span>
                     </p>
                   </div>
                 </div>
@@ -74,7 +74,7 @@ const Index = () => {
       <section className="section-padding" id="services">
         <div className="container mx-auto">
           <AnimatedSection className="text-center mb-12">
-            <span className="inline-block py-1 px-3 mb-3 text-sm font-medium rounded-full bg-akama-purple/10 text-akama-purple">
+            <span className="inline-block py-1 px-3 mb-3 text-sm font-medium rounded-full bg-akama-red/10 text-akama-red">
               Nos Expertises
             </span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-akama-dark">
@@ -133,7 +133,7 @@ const Index = () => {
           <div className="text-center mt-10">
             <Link 
               to="/services" 
-              className="inline-flex items-center px-6 py-3 rounded-lg bg-akama-purple text-white font-medium transition-all hover:bg-akama-purple/90 hover:shadow-lg hover:shadow-akama-purple/20"
+              className="inline-flex items-center px-6 py-3 rounded-lg bg-akama-red text-white font-medium transition-all hover:bg-akama-red/90 hover:shadow-lg hover:shadow-akama-red/20"
             >
               Voir tous nos services
             </Link>
@@ -154,7 +154,7 @@ const Index = () => {
             </p>
             <Link 
               to="/contact" 
-              className="inline-flex items-center px-8 py-4 rounded-full bg-akama-purple text-white font-medium transition-all hover:bg-akama-purple/90 hover:shadow-lg hover:shadow-akama-purple/20 hover:-translate-y-1"
+              className="inline-flex items-center px-8 py-4 rounded-full bg-akama-red text-white font-medium transition-all hover:bg-akama-red/90 hover:shadow-lg hover:shadow-akama-red/20 hover:-translate-y-1"
             >
               Nous contacter
             </Link>

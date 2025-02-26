@@ -64,9 +64,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				akama: {
-					purple: '#9b87f5',
-					dark: '#1A1F2C',
-					light: '#D6BCFA',
+					red: '#ea384c', // Rouge du logo
+					dark: '#000000', // Noir du logo
+					light: '#D3E4FD', // Bleu clair du logo (fond)
 					gray: '#8E9196',
 					'dark-gray': '#403E43',
 					'light-gray': '#C8C8C9'

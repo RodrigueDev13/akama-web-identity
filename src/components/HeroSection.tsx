@@ -35,7 +35,7 @@ const HeroSection = ({
       <div className="container relative z-10 px-4 md:px-6 text-white">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <div className="animate-fade-in opacity-0" style={{ animationDelay: "0.3s" }}>
-            <div className="inline-block py-1 px-3 mb-4 text-sm font-medium rounded-full border border-akama-purple/50 bg-akama-purple/10 text-akama-purple backdrop-blur-sm">
+            <div className="inline-block py-1 px-3 mb-4 text-sm font-medium rounded-full border border-akama-red/50 bg-akama-red/10 text-akama-red backdrop-blur-sm">
               AKAMA GROUPE SARL
             </div>
           </div>
@@ -52,7 +52,7 @@ const HeroSection = ({
             <div className="animate-fade-in opacity-0 pt-4" style={{ animationDelay: "0.9s" }}>
               <a
                 href={buttonLink}
-                className="inline-flex items-center px-6 py-3 rounded-full bg-akama-purple text-white font-medium transition-all hover:bg-akama-purple/90 hover:shadow-lg hover:shadow-akama-purple/20 hover:-translate-y-1"
+                className="inline-flex items-center px-6 py-3 rounded-full bg-akama-red text-white font-medium transition-all hover:bg-akama-red/90 hover:shadow-lg hover:shadow-akama-red/20 hover:-translate-y-1"
               >
                 {buttonLabel}
               </a>

@@ -13,19 +13,19 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 252 77% 74%; /* Purple base color for AKAMA */
+    --primary: 353 100% 52%; /* Rouge AKAMA */
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 220 30% 90%; /* Fond bleu clair AKAMA */
+    --secondary-foreground: 0 0% 0%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --accent: 220 30% 90%; /* Fond bleu clair AKAMA */
+    --accent-foreground: 0 0% 0%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 252 77% 74%;
+    --ring: 353 100% 52%;
     --radius: 0.75rem;
   }
 
@@ -65,7 +65,7 @@
   
   .section-title::after {
     content: "";
-    @apply absolute bottom-0 left-0 w-16 h-1 bg-akama-purple;
+    @apply absolute bottom-0 left-0 w-16 h-1 bg-akama-red;
   }
   
   .animate-on-scroll {
