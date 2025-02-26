@@ -11,13 +11,24 @@ const Legal = () => {
   return (
     <PageLayout>
       {/* Header */}
-      <section className="fullscreen-section pt-32 pb-16 bg-gradient-to-b from-akama-purple/10 to-white">
-        <div className="container mx-auto px-4">
+      <section className="fullscreen-section pt-32 pb-16 relative">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=2070&auto=format&fit=crop"
+            alt="Legal background"
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-akama-dark/90 to-akama-dark/70" />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <AnimatedSection className="text-center max-w-3xl mx-auto">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 text-akama-dark">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 text-white">
               Informations Légales
             </h1>
-            <p className="text-akama-gray text-lg">
+            <p className="text-white/80 text-lg">
               Retrouvez toutes les informations juridiques et réglementaires relatives à AKAMA GROUPE SARL.
             </p>
           </AnimatedSection>
@@ -25,11 +36,21 @@ const Legal = () => {
       </section>
       
       {/* Legal Content */}
-      <section className="fullscreen-section py-12 md:py-20">
-        <div className="container mx-auto px-4">
+      <section className="fullscreen-section py-12 md:py-20 relative">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2070&auto=format&fit=crop"
+            alt="Legal content background"
+            className="w-full h-full object-cover opacity-5"
+            loading="lazy"
+          />
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto">
             <AnimatedSection className="mb-12">
-              <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+              <div className="glass p-8 rounded-xl shadow-sm">
                 <h2 className="text-2xl font-serif font-semibold text-akama-dark mb-6">
                   AKAMA GROUPE SARL
                 </h2>
@@ -65,7 +86,7 @@ const Legal = () => {
               </h2>
               
               <div className="space-y-8">
-                <div>
+                <div className="glass p-6 rounded-xl shadow-sm">
                   <h3 className="text-xl font-medium mb-3 text-akama-dark">Propriété intellectuelle</h3>
                   <p className="text-akama-gray mb-3">
                     L'ensemble des éléments constituant le site web d'AKAMA GROUPE SARL (textes, graphismes, logos, 
@@ -75,7 +96,7 @@ const Legal = () => {
                   </p>
                 </div>
                 
-                <div>
+                <div className="glass p-6 rounded-xl shadow-sm">
                   <h3 className="text-xl font-medium mb-3 text-akama-dark">Protection des données personnelles</h3>
                   <p className="text-akama-gray mb-3">
                     Conformément à la législation en vigueur, AKAMA GROUPE SARL s'engage à respecter la vie privée 
@@ -89,7 +110,7 @@ const Legal = () => {
                   </p>
                 </div>
                 
-                <div>
+                <div className="glass p-6 rounded-xl shadow-sm">
                   <h3 className="text-xl font-medium mb-3 text-akama-dark">Limitation de responsabilité</h3>
                   <p className="text-akama-gray mb-3">
                     AKAMA GROUPE SARL s'efforce d'assurer au mieux l'exactitude et la mise à jour des informations 
@@ -98,7 +119,7 @@ const Legal = () => {
                   </p>
                 </div>
                 
-                <div>
+                <div className="glass p-6 rounded-xl shadow-sm">
                   <h3 className="text-xl font-medium mb-3 text-akama-dark">Compétence juridictionnelle</h3>
                   <p className="text-akama-gray mb-3">
                     Tout litige relatif à l'utilisation du site web d'AKAMA GROUPE SARL est soumis à la loi ivoirienne. 
