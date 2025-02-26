@@ -20,7 +20,7 @@ const History = () => {
       />
       
       {/* History Content */}
-      <section className="section-padding">
+      <section className="fullscreen-section section-padding">
         <div className="container mx-auto">
           <div className="max-w-3xl mx-auto">
             <AnimatedSection className="mb-10">

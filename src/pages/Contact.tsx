@@ -14,7 +14,7 @@ const Contact = () => {
   return (
     <PageLayout>
       {/* Header */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-akama-purple/10 to-white">
+      <section className="fullscreen-section pt-32 pb-16 bg-gradient-to-b from-akama-purple/10 to-white">
         <div className="container mx-auto px-4">
           <AnimatedSection className="text-center max-w-3xl mx-auto">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 text-akama-dark">
@@ -29,7 +29,7 @@ const Contact = () => {
       </section>
       
       {/* Contact Info & Form */}
-      <section className="py-12 md:py-20">
+      <section className="fullscreen-section py-12 md:py-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}

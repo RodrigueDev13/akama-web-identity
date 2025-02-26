@@ -11,7 +11,7 @@ const Legal = () => {
   return (
     <PageLayout>
       {/* Header */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-akama-purple/10 to-white">
+      <section className="fullscreen-section pt-32 pb-16 bg-gradient-to-b from-akama-purple/10 to-white">
         <div className="container mx-auto px-4">
           <AnimatedSection className="text-center max-w-3xl mx-auto">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 text-akama-dark">
@@ -25,7 +25,7 @@ const Legal = () => {
       </section>
       
       {/* Legal Content */}
-      <section className="py-12 md:py-20">
+      <section className="fullscreen-section py-12 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <AnimatedSection className="mb-12">

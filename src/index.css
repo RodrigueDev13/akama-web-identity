@@ -78,4 +78,8 @@
     opacity: 1;
     transform: translateY(0);
   }
+  
+  .fullscreen-section {
+    @apply min-h-screen flex flex-col justify-center;
+  }
 }
