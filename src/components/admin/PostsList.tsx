@@ -1,104 +1,144 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
 import { Edit, Trash2, Search, Filter, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Post {
-  id: number;
+  id: string;
   title: string;
   content: string;
   category: string;
-  status: "published" | "draft";
-  date: Date;
-  author: string;
+  status: string;
+  created_at: string | null;
+  updated_at: string | null;
+  author_id: string | null;
 }
 
-// Données simulées pour les publications
-const initialPosts: Post[] = [
-  {
-    id: 1,
-    title: "Lancement de notre nouvelle offre de services cloud",
-    content: "AKAMA Groupe est fier d'annoncer le lancement de sa nouvelle offre de services cloud, dédiée aux entreprises de toutes tailles. Cette solution complète comprend le stockage sécurisé, la sauvegarde automatique et la synchronisation entre appareils.",
-    category: "Informatique & Télécoms",
-    status: "published",
-    date: new Date(2023, 6, 10),
-    author: "Admin AKAMA"
-  },
-  {
-    id: 2,
-    title: "Formation en cybersécurité pour les entreprises",
-    content: "Face à l'augmentation des cyberattaques, AKAMA Groupe propose désormais des formations en cybersécurité destinées aux employés et dirigeants d'entreprise. Découvrez comment protéger efficacement vos données et votre infrastructure informatique.",
-    category: "Formation",
-    status: "published",
-    date: new Date(2023, 6, 12),
-    author: "Admin AKAMA"
-  },
-  {
-    id: 3,
-    title: "Nouvelle imprimante 3D pour prototypage rapide",
-    content: "Notre département d'imprimerie s'équipe d'une nouvelle imprimante 3D de dernière génération, permettant la réalisation rapide de prototypes pour nos clients. Cette technologie révolutionnaire offre une précision inégalée et des délais raccourcis.",
-    category: "Imprimerie",
-    status: "draft",
-    date: new Date(2023, 6, 15),
-    author: "Admin AKAMA"
-  },
-  {
-    id: 4,
-    title: "Notre expertise en production audiovisuelle",
-    content: "Découvrez l'étendue de notre expertise en production audiovisuelle : réalisation de spots publicitaires, vidéos corporate, captations d'événements et bien plus encore. Nos équipes qualifiées vous accompagnent de la conception à la diffusion.",
-    category: "Production audiovisuelle",
-    status: "draft",
-    date: new Date(2023, 6, 18),
-    author: "Admin AKAMA"
-  },
-  {
-    id: 5,
-    title: "Séminaire sur l'intelligence artificielle dans les entreprises",
-    content: "AKAMA Groupe organise un séminaire sur l'intégration de l'intelligence artificielle dans les processus d'entreprise. Venez découvrir comment l'IA peut transformer votre activité et améliorer votre productivité.",
-    category: "Formation",
-    status: "published",
-    date: new Date(2023, 6, 22),
-    author: "Admin AKAMA"
-  }
-];
-
 const PostsList = () => {
-  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<"all" | "published" | "draft">("all");
   const [filterCategory, setFilterCategory] = useState<string>("all");
   const { toast } = useToast();
 
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching posts:', error);
+        toast({
+          title: "Erreur",
+          description: "Impossible de récupérer les publications.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      setPosts(data || []);
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la récupération des publications.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeletePost = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('posts')
+        .delete()
+        .eq('id', id);
+      
+      if (error) {
+        console.error('Error deleting post:', error);
+        toast({
+          title: "Erreur",
+          description: "Impossible de supprimer la publication.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Mettre à jour l'état local
+      setPosts(posts.filter(post => post.id !== id));
+      
+      toast({
+        title: "Publication supprimée",
+        description: "La publication a été supprimée avec succès.",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la suppression de la publication.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleChangeStatus = async (id: string, currentStatus: string) => {
+    const newStatus = currentStatus === "published" ? "draft" : "published";
+    
+    try {
+      const { error } = await supabase
+        .from('posts')
+        .update({ status: newStatus })
+        .eq('id', id);
+      
+      if (error) {
+        console.error('Error updating post status:', error);
+        toast({
+          title: "Erreur",
+          description: "Impossible de modifier le statut de la publication.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Mettre à jour l'état local
+      setPosts(posts.map(post => 
+        post.id === id ? { ...post, status: newStatus } : post
+      ));
+      
+      const statusText = newStatus === "published" ? "publiée" : "brouillon";
+      
+      toast({
+        title: "Statut modifié",
+        description: `La publication est maintenant en ${statusText}.`,
+        variant: "default",
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la modification du statut.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Extraire les catégories uniques
   const categories = [...new Set(posts.map(post => post.category))];
-
-  const handleDeletePost = (id: number) => {
-    setPosts(posts.filter(post => post.id !== id));
-    toast({
-      title: "Publication supprimée",
-      description: "La publication a été supprimée avec succès.",
-      variant: "default",
-    });
-  };
-
-  const handleChangeStatus = (id: number) => {
-    setPosts(posts.map(post => 
-      post.id === id 
-        ? { ...post, status: post.status === "published" ? "draft" : "published" } 
-        : post
-    ));
-    
-    const targetPost = posts.find(post => post.id === id);
-    const newStatus = targetPost?.status === "published" ? "brouillon" : "publiée";
-    
-    toast({
-      title: "Statut modifié",
-      description: `La publication est maintenant en ${newStatus}.`,
-      variant: "default",
-    });
-  };
 
   // Filtrer les publications en fonction de la recherche et des filtres
   const filteredPosts = posts.filter(post => {
@@ -172,7 +212,13 @@ const PostsList = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredPosts.length === 0 ? (
+              {loading ? (
+                <tr>
+                  <td colSpan={5} className="py-6 text-center text-gray-500">
+                    Chargement des publications...
+                  </td>
+                </tr>
+              ) : filteredPosts.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="py-6 text-center text-gray-500">
                     Aucune publication trouvée
@@ -190,7 +236,7 @@ const PostsList = () => {
                     <td className="py-4 px-4">{post.category}</td>
                     <td className="py-4 px-4">
                       <button 
-                        onClick={() => handleChangeStatus(post.id)}
+                        onClick={() => handleChangeStatus(post.id, post.status)}
                         className={`px-2 py-1 text-xs rounded-full ${
                           post.status === "published" 
                             ? "bg-green-100 text-green-800 hover:bg-green-200" 
@@ -201,7 +247,7 @@ const PostsList = () => {
                       </button>
                     </td>
                     <td className="py-4 px-4 text-sm text-gray-500">
-                      {formatDistanceToNow(post.date, {
+                      {post.created_at && formatDistanceToNow(new Date(post.created_at), {
                         addSuffix: true,
                         locale: fr
                       })}

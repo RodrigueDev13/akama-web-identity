@@ -1,116 +1,136 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
 import { Eye, Trash2, Search, Filter } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Message {
-  id: number;
+  id: string;
   name: string;
   email: string;
   subject: string;
   message: string;
-  date: Date;
-  isRead: boolean;
+  created_at: string | null;
+  is_read: boolean | null;
 }
 
-// Données simulées pour les messages
-const initialMessages: Message[] = [
-  {
-    id: 1,
-    name: "Jean Dupont",
-    email: "jean.dupont@example.com",
-    subject: "Informatique & Télécoms",
-    message: "Bonjour, je souhaiterais obtenir plus d'informations sur vos services informatiques et les solutions que vous proposez pour les PME. Notre entreprise cherche à moderniser son infrastructure.",
-    date: new Date(2023, 6, 15),
-    isRead: true
-  },
-  {
-    id: 2,
-    name: "Marie Lambert",
-    email: "marie.lambert@example.com",
-    subject: "Formation",
-    message: "Je cherche à former mon équipe de 10 personnes sur les dernières technologies web. Pouvez-vous me donner des informations sur vos programmes de formation et les tarifs associés?",
-    date: new Date(2023, 6, 18),
-    isRead: false
-  },
-  {
-    id: 3,
-    name: "Thomas Petit",
-    email: "thomas.petit@example.com",
-    subject: "Production audiovisuelle",
-    message: "Nous aimerions discuter d'un projet de vidéo promotionnelle pour notre entreprise. Il s'agirait d'une vidéo de 2-3 minutes présentant nos activités et nos valeurs.",
-    date: new Date(2023, 6, 20),
-    isRead: false
-  },
-  {
-    id: 4,
-    name: "Sophie Martin",
-    email: "sophie.martin@example.com",
-    subject: "Imprimerie",
-    message: "Pourriez-vous me faire un devis pour l'impression de 1000 brochures en couleur, format A4 recto-verso? C'est pour un événement qui aura lieu dans deux mois.",
-    date: new Date(2023, 6, 22),
-    isRead: true
-  },
-  {
-    id: 5,
-    name: "Paul Renard",
-    email: "paul.renard@example.com",
-    subject: "Etudes et conseils",
-    message: "Nous sommes à la recherche d'un consultant pour nous aider à effectuer une étude de marché dans le secteur technologique. Quels sont vos services dans ce domaine?",
-    date: new Date(2023, 6, 25),
-    isRead: true
-  },
-  {
-    id: 6,
-    name: "Isabelle Blanc",
-    email: "isabelle.blanc@example.com",
-    subject: "Informatique & Télécoms",
-    message: "Bonjour, nous rencontrons des problèmes avec notre réseau informatique et cherchons une entreprise pour un diagnostic et une maintenance régulière. Pouvez-vous nous aider?",
-    date: new Date(2023, 6, 28),
-    isRead: false
-  },
-  {
-    id: 7,
-    name: "Michel Leroy",
-    email: "michel.leroy@example.com",
-    subject: "Autre",
-    message: "Je souhaiterais en savoir plus sur votre entreprise et les perspectives de collaboration. Pourriez-vous me contacter pour discuter de possibilités de partenariat?",
-    date: new Date(2023, 7, 1),
-    isRead: false
-  }
-];
-
 const MessagesList = () => {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<"all" | "read" | "unread">("all");
   const { toast } = useToast();
 
-  const handleViewMessage = (message: Message) => {
-    // Marquer le message comme lu
-    if (!message.isRead) {
-      const updatedMessages = messages.map(m => 
-        m.id === message.id ? { ...m, isRead: true } : m
-      );
-      setMessages(updatedMessages);
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const fetchMessages = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('messages')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching messages:', error);
+        toast({
+          title: "Erreur",
+          description: "Impossible de récupérer les messages.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      setMessages(data || []);
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la récupération des messages.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleViewMessage = async (message: Message) => {
+    // Marquer le message comme lu dans la base de données si ce n'est pas déjà le cas
+    if (!message.is_read) {
+      try {
+        const { error } = await supabase
+          .from('messages')
+          .update({ is_read: true })
+          .eq('id', message.id);
+        
+        if (error) {
+          console.error('Error updating message status:', error);
+          toast({
+            title: "Erreur",
+            description: "Impossible de marquer le message comme lu.",
+            variant: "destructive",
+          });
+          return;
+        }
+        
+        // Mettre à jour l'état local
+        setMessages(messages.map(m => 
+          m.id === message.id ? { ...m, is_read: true } : m
+        ));
+      } catch (error) {
+        console.error('Error:', error);
+        toast({
+          title: "Erreur",
+          description: "Une erreur est survenue lors de la mise à jour du message.",
+          variant: "destructive",
+        });
+      }
     }
     setSelectedMessage(message);
   };
 
-  const handleDeleteMessage = (id: number) => {
-    setMessages(messages.filter(message => message.id !== id));
-    if (selectedMessage && selectedMessage.id === id) {
-      setSelectedMessage(null);
+  const handleDeleteMessage = async (id: string) => {
+    try {
+      const { error } = await supabase
+        .from('messages')
+        .delete()
+        .eq('id', id);
+      
+      if (error) {
+        console.error('Error deleting message:', error);
+        toast({
+          title: "Erreur",
+          description: "Impossible de supprimer le message.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      // Mettre à jour l'état local
+      setMessages(messages.filter(message => message.id !== id));
+      if (selectedMessage && selectedMessage.id === id) {
+        setSelectedMessage(null);
+      }
+      
+      toast({
+        title: "Message supprimé",
+        description: "Le message a été supprimé avec succès.",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la suppression du message.",
+        variant: "destructive",
+      });
     }
-    toast({
-      title: "Message supprimé",
-      description: "Le message a été supprimé avec succès.",
-      variant: "default",
-    });
   };
 
   // Filtrer les messages en fonction de la recherche et du filtre de statut
@@ -121,8 +141,8 @@ const MessagesList = () => {
                          message.message.toLowerCase().includes(searchTerm.toLowerCase());
     
     if (filterStatus === "all") return matchesSearch;
-    if (filterStatus === "read") return matchesSearch && message.isRead;
-    if (filterStatus === "unread") return matchesSearch && !message.isRead;
+    if (filterStatus === "read") return matchesSearch && message.is_read === true;
+    if (filterStatus === "unread") return matchesSearch && message.is_read === false;
     return matchesSearch;
   });
 
@@ -156,7 +176,11 @@ const MessagesList = () => {
           </div>
           
           <div className="overflow-y-auto max-h-[calc(100vh-280px)]">
-            {filteredMessages.length === 0 ? (
+            {loading ? (
+              <div className="text-center py-8 text-gray-500">
+                Chargement des messages...
+              </div>
+            ) : filteredMessages.length === 0 ? (
               <div className="text-center py-8 text-gray-500">
                 Aucun message trouvé
               </div>
@@ -167,14 +191,14 @@ const MessagesList = () => {
                     <button
                       className={`w-full text-left p-3 rounded-lg hover:bg-gray-50 transition-colors ${
                         selectedMessage?.id === message.id ? "bg-gray-50" : ""
-                      } ${!message.isRead ? "font-medium" : ""}`}
+                      } ${!message.is_read ? "font-medium" : ""}`}
                       onClick={() => handleViewMessage(message)}
                     >
                       <div className="flex items-start justify-between">
                         <div>
-                          <h4 className={`text-sm ${!message.isRead ? "font-semibold" : ""}`}>
+                          <h4 className={`text-sm ${!message.is_read ? "font-semibold" : ""}`}>
                             {message.name}
-                            {!message.isRead && (
+                            {!message.is_read && (
                               <span className="ml-2 inline-block w-2 h-2 bg-akama-purple rounded-full"></span>
                             )}
                           </h4>
@@ -182,7 +206,7 @@ const MessagesList = () => {
                           <p className="text-sm mt-1 truncate">{message.subject}</p>
                         </div>
                         <span className="text-xs text-gray-400">
-                          {formatDistanceToNow(message.date, {
+                          {message.created_at && formatDistanceToNow(new Date(message.created_at), {
                             addSuffix: true,
                             locale: fr
                           })}
@@ -207,7 +231,7 @@ const MessagesList = () => {
                   <div className="flex items-center mt-2 text-sm text-gray-500">
                     <span className="mr-4">De: {selectedMessage.name} &lt;{selectedMessage.email}&gt;</span>
                     <span>
-                      {formatDistanceToNow(selectedMessage.date, {
+                      {selectedMessage.created_at && formatDistanceToNow(new Date(selectedMessage.created_at), {
                         addSuffix: true,
                         locale: fr
                       })}
