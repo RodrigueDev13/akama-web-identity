@@ -7,6 +7,16 @@ import { Edit, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface Post {
   id: string;
@@ -20,6 +30,8 @@ interface Post {
 const RecentPosts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [postToDelete, setPostToDelete] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -47,12 +59,19 @@ const RecentPosts = () => {
     }
   };
 
-  const handleDeletePost = async (id: string) => {
+  const confirmDeletePost = (id: string) => {
+    setPostToDelete(id);
+    setDeleteDialogOpen(true);
+  };
+
+  const handleDeletePost = async () => {
+    if (!postToDelete) return;
+    
     try {
       const { error } = await supabase
         .from('posts')
         .delete()
-        .eq('id', id);
+        .eq('id', postToDelete);
       
       if (error) {
         console.error('Error deleting post:', error);
@@ -65,7 +84,7 @@ const RecentPosts = () => {
       }
       
       // Mettre à jour l'état local
-      setPosts(posts.filter(post => post.id !== id));
+      setPosts(posts.filter(post => post.id !== postToDelete));
       
       toast({
         title: "Publication supprimée",
@@ -78,81 +97,103 @@ const RecentPosts = () => {
         description: "Une erreur est survenue lors de la suppression de la publication.",
         variant: "destructive",
       });
+    } finally {
+      setPostToDelete(null);
+      setDeleteDialogOpen(false);
     }
   };
 
   return (
-    <Card className="p-6">
-      <h3 className="text-xl font-bold mb-4">Publications récentes</h3>
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr className="border-b border-gray-200">
-              <th className="pb-3 text-left font-medium text-gray-500">Titre</th>
-              <th className="pb-3 text-left font-medium text-gray-500">Catégorie</th>
-              <th className="pb-3 text-left font-medium text-gray-500">Statut</th>
-              <th className="pb-3 text-left font-medium text-gray-500">Date</th>
-              <th className="pb-3 text-left font-medium text-gray-500">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {loading ? (
-              <tr>
-                <td colSpan={5} className="py-4 text-center text-gray-500">
-                  Chargement des publications...
-                </td>
+    <>
+      <Card className="p-6">
+        <h3 className="text-xl font-bold mb-4">Publications récentes</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="pb-3 text-left font-medium text-gray-500">Titre</th>
+                <th className="pb-3 text-left font-medium text-gray-500">Catégorie</th>
+                <th className="pb-3 text-left font-medium text-gray-500">Statut</th>
+                <th className="pb-3 text-left font-medium text-gray-500">Date</th>
+                <th className="pb-3 text-left font-medium text-gray-500">Actions</th>
               </tr>
-            ) : posts.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="py-4 text-center text-gray-500">
-                  Aucune publication récente
-                </td>
-              </tr>
-            ) : (
-              posts.map((post) => (
-                <tr key={post.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="py-4 font-medium">{post.title}</td>
-                  <td className="py-4">{post.category}</td>
-                  <td className="py-4">
-                    <span className={`px-2 py-1 text-xs rounded-full ${
-                      post.status === "published" 
-                        ? "bg-green-100 text-green-800" 
-                        : "bg-gray-100 text-gray-800"
-                    }`}>
-                      {post.status === "published" ? "Publié" : "Brouillon"}
-                    </span>
-                  </td>
-                  <td className="py-4 text-sm text-gray-500">
-                    {post.created_at && formatDistanceToNow(new Date(post.created_at), {
-                      addSuffix: true,
-                      locale: fr
-                    })}
-                  </td>
-                  <td className="py-4">
-                    <div className="flex space-x-2">
-                      <Link to={`/admin/posts?edit=${post.id}`} className="p-1 hover:bg-gray-100 rounded">
-                        <Edit size={18} className="text-akama-purple" />
-                      </Link>
-                      <button
-                        className="p-1 hover:bg-gray-100 rounded"
-                        onClick={() => handleDeletePost(post.id)}
-                      >
-                        <Trash2 size={18} className="text-akama-red" />
-                      </button>
-                    </div>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={5} className="py-4 text-center text-gray-500">
+                    Chargement des publications...
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
-      <div className="mt-4 text-right">
-        <Link to="/admin/posts" className="text-akama-purple hover:underline text-sm font-medium">
-          Voir toutes les publications →
-        </Link>
-      </div>
-    </Card>
+              ) : posts.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="py-4 text-center text-gray-500">
+                    Aucune publication récente
+                  </td>
+                </tr>
+              ) : (
+                posts.map((post) => (
+                  <tr key={post.id} className="border-b border-gray-100 hover:bg-gray-50">
+                    <td className="py-4 font-medium">{post.title}</td>
+                    <td className="py-4">{post.category}</td>
+                    <td className="py-4">
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        post.status === "published" 
+                          ? "bg-green-100 text-green-800" 
+                          : "bg-gray-100 text-gray-800"
+                      }`}>
+                        {post.status === "published" ? "Publié" : "Brouillon"}
+                      </span>
+                    </td>
+                    <td className="py-4 text-sm text-gray-500">
+                      {post.created_at && formatDistanceToNow(new Date(post.created_at), {
+                        addSuffix: true,
+                        locale: fr
+                      })}
+                    </td>
+                    <td className="py-4">
+                      <div className="flex space-x-2">
+                        <Link to={`/admin/posts?edit=${post.id}`} className="p-1 hover:bg-gray-100 rounded">
+                          <Edit size={18} className="text-akama-purple" />
+                        </Link>
+                        <button
+                          className="p-1 hover:bg-gray-100 rounded"
+                          onClick={() => confirmDeletePost(post.id)}
+                        >
+                          <Trash2 size={18} className="text-akama-red" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="mt-4 text-right">
+          <Link to="/admin/posts" className="text-akama-purple hover:underline text-sm font-medium">
+            Voir toutes les publications →
+          </Link>
+        </div>
+      </Card>
+
+      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Supprimer la publication ?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Cette action est irréversible. La publication sera définitivement supprimée.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Annuler</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeletePost} className="bg-red-600 hover:bg-red-700">
+              Supprimer
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 };
 
