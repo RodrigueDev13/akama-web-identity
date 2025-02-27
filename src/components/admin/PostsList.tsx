@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
-import { Edit, Trash2, Search, Filter, Plus } from "lucide-react";
+import { Edit, Trash2, Search, Plus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import PostForm from "./PostForm";
 
 interface Post {
   id: string;
@@ -24,6 +25,8 @@ const PostsList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterStatus, setFilterStatus] = useState<"all" | "published" | "draft">("all");
   const [filterCategory, setFilterCategory] = useState<string>("all");
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingPost, setEditingPost] = useState<Post | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -137,6 +140,16 @@ const PostsList = () => {
     }
   };
 
+  const handleEditPost = (post: Post) => {
+    setEditingPost(post);
+    setIsFormOpen(true);
+  };
+
+  const handleNewPost = () => {
+    setEditingPost(null);
+    setIsFormOpen(true);
+  };
+
   // Extraire les catégories uniques
   const categories = [...new Set(posts.map(post => post.category))];
 
@@ -155,7 +168,10 @@ const PostsList = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">Publications</h2>
-        <button className="flex items-center px-4 py-2 bg-akama-purple text-white rounded-lg hover:bg-akama-purple/90 transition-colors">
+        <button 
+          className="flex items-center px-4 py-2 bg-akama-purple text-white rounded-lg hover:bg-akama-purple/90 transition-colors"
+          onClick={handleNewPost}
+        >
           <Plus size={18} className="mr-2" />
           Nouvelle publication
         </button>
@@ -257,6 +273,7 @@ const PostsList = () => {
                         <button 
                           className="p-1 hover:bg-gray-100 rounded"
                           title="Modifier"
+                          onClick={() => handleEditPost(post)}
                         >
                           <Edit size={18} className="text-akama-purple" />
                         </button>
@@ -276,6 +293,13 @@ const PostsList = () => {
           </table>
         </div>
       </Card>
+      
+      <PostForm 
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        onPostCreated={fetchPosts}
+        editPost={editingPost}
+      />
     </div>
   );
 };
