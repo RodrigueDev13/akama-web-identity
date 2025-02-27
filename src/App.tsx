@@ -12,6 +12,12 @@ import Contact from "./pages/Contact";
 import Legal from "./pages/Legal";
 import NotFound from "./pages/NotFound";
 
+// Pages d'administration
+import AdminLogin from "./pages/admin/Login";
+import AdminDashboard from "./pages/admin/Dashboard";
+import AdminMessages from "./pages/admin/Messages";
+import AdminPosts from "./pages/admin/Posts";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -21,12 +27,21 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Routes publiques */}
           <Route path="/" element={<Index />} />
           <Route path="/history" element={<History />} />
           <Route path="/services" element={<Services />} />
           <Route path="/organization" element={<Organization />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/legal" element={<Legal />} />
+          
+          {/* Routes d'administration */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/messages" element={<AdminMessages />} />
+          <Route path="/admin/posts" element={<AdminPosts />} />
+          
+          {/* Route 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
