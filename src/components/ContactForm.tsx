@@ -121,7 +121,7 @@ const ContactForm = () => {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full md:w-auto bg-akama-purple hover:bg-akama-purple/90 text-white"
+          className="w-full md:w-auto bg-black hover:bg-black/90 text-white"
           size="lg"
         >
           {isSubmitting ? (
