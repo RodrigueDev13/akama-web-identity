@@ -19,9 +19,9 @@ const AdminDashboard = () => {
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Tableau de bord</h1>
           <Link to="/admin/posts">
-            <Button className="bg-black hover:bg-black/90 text-black font-semibold">
-              <Plus className="mr-2 h-4 w-4" />
-              Nouvelle publication
+            <Button className="bg-black hover:bg-black/90">
+              <Plus className="mr-2 h-4 w-4 text-white" />
+              <span className="text-white font-medium">Nouvelle publication</span>
             </Button>
           </Link>
         </div>
