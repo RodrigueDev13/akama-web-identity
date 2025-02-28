@@ -4,6 +4,9 @@ import AdminLayout from "@/layout/AdminLayout";
 import DashboardStats from "@/components/admin/DashboardStats";
 import RecentMessages from "@/components/admin/RecentMessages";
 import RecentPosts from "@/components/admin/RecentPosts";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
   useEffect(() => {
@@ -13,7 +16,15 @@ const AdminDashboard = () => {
   return (
     <AdminLayout>
       <div className="p-6">
-        <h1 className="text-2xl font-bold mb-6">Tableau de bord</h1>
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Tableau de bord</h1>
+          <Link to="/admin/posts">
+            <Button className="bg-akama-purple hover:bg-akama-purple/90 text-white">
+              <Plus className="mr-2 h-4 w-4" />
+              Nouvelle publication
+            </Button>
+          </Link>
+        </div>
         
         <DashboardStats />
         

@@ -1,6 +1,8 @@
 
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Send } from "lucide-react";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -116,10 +118,11 @@ const ContactForm = () => {
       </div>
       
       <div>
-        <button
+        <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full md:w-auto px-8 py-3 bg-akama-purple text-white rounded-lg transition-all hover:bg-akama-purple/90 focus:outline-none focus:ring-2 focus:ring-akama-purple/50 disabled:opacity-70 flex items-center justify-center"
+          className="w-full md:w-auto bg-akama-purple hover:bg-akama-purple/90 text-white"
+          size="lg"
         >
           {isSubmitting ? (
             <>
@@ -130,9 +133,12 @@ const ContactForm = () => {
               Envoi en cours...
             </>
           ) : (
-            "Envoyer le message"
+            <>
+              <Send className="mr-2 h-4 w-4" />
+              Envoyer le message
+            </>
           )}
-        </button>
+        </Button>
       </div>
     </form>
   );
