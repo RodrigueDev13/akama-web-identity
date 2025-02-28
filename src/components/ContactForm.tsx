@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -19,28 +20,55 @@ const ContactForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Envoyer les données à Supabase
+      const { error } = await supabase
+        .from('messages')
+        .insert([
+          {
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message
+          }
+        ]);
+        
+      if (error) {
+        console.error("Erreur lors de l'envoi du message:", error);
+        toast({
+          title: "Erreur",
+          description: "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Message envoyé",
+          description: "Nous vous répondrons dans les plus brefs délais.",
+          variant: "default",
+        });
+        
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: ""
+        });
+      }
+    } catch (error) {
+      console.error("Erreur:", error);
       toast({
-        title: "Message envoyé",
-        description: "Nous vous répondrons dans les plus brefs délais.",
-        variant: "default",
+        title: "Erreur",
+        description: "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer.",
+        variant: "destructive",
       });
-      
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
-      });
-      
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
   
   return (
