@@ -26,7 +26,7 @@ const ContactForm = () => {
     
     try {
       // Envoyer les données à Supabase
-      const { error } = await supabase
+      const { error: supabaseError } = await supabase
         .from('messages')
         .insert([
           {
@@ -37,28 +37,50 @@ const ContactForm = () => {
           }
         ]);
         
-      if (error) {
-        console.error("Erreur lors de l'envoi du message:", error);
+      if (supabaseError) {
+        console.error("Erreur lors de l'envoi du message:", supabaseError);
         toast({
           title: "Erreur",
-          description: "Une erreur est survenue lors de l'envoi de votre message. Veuillez réessayer.",
+          description: "Une erreur est survenue lors de l'enregistrement de votre message. Veuillez réessayer.",
           variant: "destructive",
         });
-      } else {
-        toast({
-          title: "Message envoyé",
-          description: "Nous vous répondrons dans les plus brefs délais.",
-          variant: "default",
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // Envoyer l'email via la fonction Edge
+      try {
+        const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
+          body: {
+            name: formData.name,
+            email: formData.email,
+            subject: formData.subject,
+            message: formData.message
+          }
         });
         
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: ""
-        });
+        if (emailError) {
+          console.error("Erreur lors de l'envoi de l'email:", emailError);
+          // On continue car le message a déjà été enregistré dans la base de données
+        }
+      } catch (emailError) {
+        console.error("Exception lors de l'envoi de l'email:", emailError);
+        // On continue car le message a déjà été enregistré dans la base de données
       }
+      
+      toast({
+        title: "Message envoyé",
+        description: "Nous vous répondrons dans les plus brefs délais.",
+        variant: "default",
+      });
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+      });
     } catch (error) {
       console.error("Erreur:", error);
       toast({

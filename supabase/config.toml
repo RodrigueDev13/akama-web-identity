@@ -1,1 +1,16 @@
+
 project_id = "uzpqgtydnanphqzdtdvr"
+[api]
+enabled = true
+[db]
+enabled = true
+[realtime]
+enabled = true
+[auth]
+enabled = true
+[storage]
+enabled = true
+[functions]
+enabled = true
+[functions.send-contact-email]
+verify_jwt = false
