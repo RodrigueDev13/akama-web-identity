@@ -12,9 +12,6 @@ port = 54322
 shadow_port = 54320
 major_version = 15
 
-[realtime]
-webhook_callback_handler = "postgres"
-
 [studio]
 port = 54323
 api_url = "http://localhost"
