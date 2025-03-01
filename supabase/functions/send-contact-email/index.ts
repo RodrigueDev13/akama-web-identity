@@ -24,35 +24,46 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const { name, email, subject, message }: ContactEmailRequest = await req.json();
+    console.log("Received contact form submission:", { name, email, subject, message });
 
     // Email to the site administrator
-    const adminEmailResponse = await resend.emails.send({
-      from: "AKAMA GROUPE <contact@akamagroupe.com>",
-      to: ["admin@akamagroupe.com"], // Remplacez par l'email de l'administrateur
-      subject: `Nouveau message de contact: ${subject}`,
-      html: `
-        <h1>Nouveau message de contact</h1>
-        <p><strong>De:</strong> ${name} (${email})</p>
-        <p><strong>Sujet:</strong> ${subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-      `,
-    });
+    try {
+      const adminEmailResponse = await resend.emails.send({
+        from: "AKAMA GROUPE <onboarding@resend.dev>", // Utilisez l'adresse validée dans Resend
+        to: ["admin@akamagroupe.com"], // Remplacez par l'email de l'administrateur
+        subject: `Nouveau message de contact: ${subject}`,
+        html: `
+          <h1>Nouveau message de contact</h1>
+          <p><strong>De:</strong> ${name} (${email})</p>
+          <p><strong>Sujet:</strong> ${subject}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
+        `,
+      });
+      console.log("Admin email sent successfully:", adminEmailResponse);
+    } catch (adminEmailError) {
+      console.error("Error sending admin email:", adminEmailError);
+      // Continue with confirmation email even if admin email fails
+    }
 
     // Confirmation email to the sender
-    const confirmatonEmailResponse = await resend.emails.send({
-      from: "AKAMA GROUPE <contact@akamagroupe.com>",
-      to: [email],
-      subject: "Nous avons bien reçu votre message",
-      html: `
-        <h1>Merci de nous avoir contacté, ${name}!</h1>
-        <p>Nous avons bien reçu votre message concernant "${subject}".</p>
-        <p>Notre équipe vous répondra dans les plus brefs délais.</p>
-        <p>Cordialement,<br>L'équipe AKAMA GROUPE</p>
-      `,
-    });
-
-    console.log("Emails sent successfully:", adminEmailResponse, confirmatonEmailResponse);
+    try {
+      const confirmationEmailResponse = await resend.emails.send({
+        from: "AKAMA GROUPE <onboarding@resend.dev>", // Utilisez l'adresse validée dans Resend
+        to: [email],
+        subject: "Nous avons bien reçu votre message",
+        html: `
+          <h1>Merci de nous avoir contacté, ${name}!</h1>
+          <p>Nous avons bien reçu votre message concernant "${subject}".</p>
+          <p>Notre équipe vous répondra dans les plus brefs délais.</p>
+          <p>Cordialement,<br>L'équipe AKAMA GROUPE</p>
+        `,
+      });
+      console.log("Confirmation email sent successfully:", confirmationEmailResponse);
+    } catch (confirmationEmailError) {
+      console.error("Error sending confirmation email:", confirmationEmailError);
+      // Continue even if confirmation email fails
+    }
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,

@@ -49,30 +49,31 @@ const ContactForm = () => {
       }
       
       // Envoyer l'email via la fonction Edge
-      try {
-        const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
-          body: {
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message
-          }
-        });
-        
-        if (emailError) {
-          console.error("Erreur lors de l'envoi de l'email:", emailError);
-          // On continue car le message a déjà été enregistré dans la base de données
+      const { data: emailData, error: emailError } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message
         }
-      } catch (emailError) {
-        console.error("Exception lors de l'envoi de l'email:", emailError);
-        // On continue car le message a déjà été enregistré dans la base de données
-      }
-      
-      toast({
-        title: "Message envoyé",
-        description: "Nous vous répondrons dans les plus brefs délais.",
-        variant: "default",
       });
+      
+      if (emailError) {
+        console.error("Erreur lors de l'envoi de l'email:", emailError);
+        // Le message est déjà enregistré, donc on continue
+        toast({
+          title: "Message enregistré",
+          description: "Votre message a été enregistré, mais l'envoi de l'email de confirmation a échoué.",
+          variant: "default",
+        });
+      } else {
+        console.log("Email envoyé avec succès:", emailData);
+        toast({
+          title: "Message envoyé",
+          description: "Nous vous répondrons dans les plus brefs délais.",
+          variant: "default",
+        });
+      }
       
       // Reset form
       setFormData({
