@@ -14,9 +14,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // API Routes
-app.post('/api/contact', contactHandler);
-app.post('/api/admin/login', loginHandler);
-app.get('/api/admin/messages', messagesHandler);
+app.post('/api/contact', (req, res) => contactHandler(req, res));
+app.post('/api/admin/login', (req, res) => loginHandler(req, res));
+app.get('/api/admin/messages', (req, res) => messagesHandler(req, res));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
