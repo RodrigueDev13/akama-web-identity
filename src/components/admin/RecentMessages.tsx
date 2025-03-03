@@ -3,12 +3,57 @@ import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
-import { supabase } from "@/integrations/supabase/client";
-import { Tables } from "@/integrations/supabase/types";
 
-type Message = Tables<"messages"> & {
+// Type simplifié pour les messages (sans référence à Supabase)
+type Message = {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  is_read: boolean;
   created_at: string;
 };
+
+// Données fictives de messages pour la démo
+const mockMessages: Message[] = [
+  {
+    id: "1",
+    name: "Jean Dupont",
+    email: "jean.dupont@example.com",
+    subject: "Informatique & Télécoms",
+    message: "Je souhaite obtenir plus d'informations sur vos services informatiques.",
+    is_read: true,
+    created_at: new Date(Date.now() - 3600000).toISOString() // 1 heure avant
+  },
+  {
+    id: "2",
+    name: "Marie Martin",
+    email: "marie.martin@example.com",
+    subject: "Formation",
+    message: "Quelles formations proposez-vous dans le domaine du design ?",
+    is_read: false,
+    created_at: new Date(Date.now() - 86400000).toISOString() // 1 jour avant
+  },
+  {
+    id: "3",
+    name: "Pierre Leroy",
+    email: "pierre.leroy@example.com",
+    subject: "Production audiovisuelle",
+    message: "Pouvez-vous me faire un devis pour un projet vidéo ?",
+    is_read: false,
+    created_at: new Date(Date.now() - 172800000).toISOString() // 2 jours avant
+  },
+  {
+    id: "4",
+    name: "Sophie Petit",
+    email: "sophie.petit@example.com",
+    subject: "Etudes et conseils",
+    message: "J'aimerais discuter d'un partenariat potentiel.",
+    is_read: true,
+    created_at: new Date(Date.now() - 259200000).toISOString() // 3 jours avant
+  }
+];
 
 const RecentMessages = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -16,28 +61,15 @@ const RecentMessages = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("messages")
-          .select("*")
-          .order("created_at", { ascending: false })
-          .limit(4);
-
-        if (error) {
-          throw error;
-        }
-
-        setMessages(data as Message[]);
-      } catch (err: any) {
-        console.error("Erreur lors de la récupération des messages:", err);
-        setError(err.message);
-      } finally {
+    // Simuler un chargement des données
+    const loadMessages = () => {
+      setTimeout(() => {
+        setMessages(mockMessages);
         setIsLoading(false);
-      }
+      }, 1000);
     };
 
-    fetchMessages();
+    loadMessages();
   }, []);
 
   if (isLoading) {

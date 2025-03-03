@@ -21,11 +21,10 @@ const AdminLoginForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simuler une vérification d'identifiants admin
-    // Dans un cas réel, cela devrait être vérifié via une API sécurisée
-    if (credentials.email === "admin@akamagroupe.com" && credentials.password === "admin123") {
-      setTimeout(() => {
-        // Stocker l'état de connexion dans localStorage
+    // Simuler une connexion avec un délai
+    setTimeout(() => {
+      if (credentials.email === "admin@akamagroupe.com" && credentials.password === "admin123") {
+        // Stocker l'état de connexion en mémoire locale (pourrait être un moyen plus sécurisé dans une application réelle)
         localStorage.setItem("adminAuthenticated", "true");
         
         toast({
@@ -35,18 +34,15 @@ const AdminLoginForm = () => {
         });
         
         navigate("/admin/dashboard");
-        setIsSubmitting(false);
-      }, 1000);
-    } else {
-      setTimeout(() => {
+      } else {
         toast({
           title: "Échec de connexion",
           description: "Email ou mot de passe incorrect.",
           variant: "destructive",
         });
-        setIsSubmitting(false);
-      }, 1000);
-    }
+      }
+      setIsSubmitting(false);
+    }, 1000);
   };
   
   return (

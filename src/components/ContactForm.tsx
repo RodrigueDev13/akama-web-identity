@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -25,55 +24,17 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Envoyer les données à Supabase
-      const { error: supabaseError } = await supabase
-        .from('messages')
-        .insert([
-          {
-            name: formData.name,
-            email: formData.email,
-            subject: formData.subject,
-            message: formData.message
-          }
-        ]);
-        
-      if (supabaseError) {
-        console.error("Erreur lors de l'envoi du message:", supabaseError);
-        toast({
-          title: "Erreur",
-          description: "Une erreur est survenue lors de l'enregistrement de votre message. Veuillez réessayer.",
-          variant: "destructive",
-        });
-        setIsSubmitting(false);
-        return;
-      }
+      // Simulation d'envoi de message
+      // Attendre 1 seconde pour simuler l'envoi
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Envoyer l'email via la fonction Edge
-      const { data: emailData, error: emailError } = await supabase.functions.invoke('send-contact-email', {
-        body: {
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message
-        }
+      console.log("Message qui serait envoyé:", formData);
+      
+      toast({
+        title: "Message envoyé",
+        description: "Dans une version finale, votre message serait envoyé. Nous vous répondrons dans les plus brefs délais.",
+        variant: "default",
       });
-      
-      if (emailError) {
-        console.error("Erreur lors de l'envoi de l'email:", emailError);
-        // Le message est déjà enregistré, donc on continue
-        toast({
-          title: "Message enregistré",
-          description: "Votre message a été enregistré, mais l'envoi de l'email de confirmation a échoué.",
-          variant: "default",
-        });
-      } else {
-        console.log("Email envoyé avec succès:", emailData);
-        toast({
-          title: "Message envoyé",
-          description: "Nous vous répondrons dans les plus brefs délais.",
-          variant: "default",
-        });
-      }
       
       // Reset form
       setFormData({
