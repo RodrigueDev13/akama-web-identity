@@ -15,15 +15,15 @@ app.use(bodyParser.json());
 
 // API Routes
 app.post('/api/contact', (req, res) => {
-  return contactHandler(req, res);
+  contactHandler(req, res);
 });
 
 app.post('/api/admin/login', (req, res) => {
-  return loginHandler(req, res);
+  loginHandler(req, res);
 });
 
 app.get('/api/admin/messages', (req, res) => {
-  return messagesHandler(req, res);
+  messagesHandler(req, res);
 });
 
 app.listen(PORT, () => {
