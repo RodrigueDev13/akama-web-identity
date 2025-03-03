@@ -14,9 +14,17 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // API Routes
-app.post('/api/contact', (req, res) => contactHandler(req, res));
-app.post('/api/admin/login', (req, res) => loginHandler(req, res));
-app.get('/api/admin/messages', (req, res) => messagesHandler(req, res));
+app.post('/api/contact', (req, res) => {
+  return contactHandler(req, res);
+});
+
+app.post('/api/admin/login', (req, res) => {
+  return loginHandler(req, res);
+});
+
+app.get('/api/admin/messages', (req, res) => {
+  return messagesHandler(req, res);
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

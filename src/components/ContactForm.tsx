@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -10,6 +13,7 @@ const ContactForm = () => {
     name: "",
     email: "",
     subject: "",
+    otherSubject: "",
     message: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,13 +28,20 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
+      // Prepare data to send
+      const dataToSend = {
+        ...formData,
+        // If subject is 'Autre', use the otherSubject field value
+        subject: formData.subject === 'Autre' ? formData.otherSubject : formData.subject,
+      };
+      
       // Send form data to the API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(dataToSend),
       });
 
       if (!response.ok) {
@@ -48,6 +59,7 @@ const ContactForm = () => {
         name: "",
         email: "",
         subject: "",
+        otherSubject: "",
         message: ""
       });
     } catch (error) {
@@ -66,10 +78,10 @@ const ContactForm = () => {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-akama-dark mb-1">
+          <Label htmlFor="name" className="text-sm font-medium text-akama-dark mb-1">
             Nom complet
-          </label>
-          <input
+          </Label>
+          <Input
             id="name"
             name="name"
             type="text"
@@ -82,10 +94,10 @@ const ContactForm = () => {
         </div>
         
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-akama-dark mb-1">
+          <Label htmlFor="email" className="text-sm font-medium text-akama-dark mb-1">
             Email
-          </label>
-          <input
+          </Label>
+          <Input
             id="email"
             name="email"
             type="email"
@@ -99,9 +111,9 @@ const ContactForm = () => {
       </div>
       
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-akama-dark mb-1">
+        <Label htmlFor="subject" className="text-sm font-medium text-akama-dark mb-1">
           Sujet
-        </label>
+        </Label>
         <select
           id="subject"
           name="subject"
@@ -120,11 +132,29 @@ const ContactForm = () => {
         </select>
       </div>
       
+      {formData.subject === 'Autre' && (
+        <div>
+          <Label htmlFor="otherSubject" className="text-sm font-medium text-akama-dark mb-1">
+            Précisez le sujet
+          </Label>
+          <Input
+            id="otherSubject"
+            name="otherSubject"
+            type="text"
+            required={formData.subject === 'Autre'}
+            value={formData.otherSubject}
+            onChange={handleChange}
+            className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-akama-purple/30 focus:border-akama-purple transition-colors"
+            placeholder="Veuillez préciser le sujet de votre demande"
+          />
+        </div>
+      )}
+      
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-akama-dark mb-1">
+        <Label htmlFor="message" className="text-sm font-medium text-akama-dark mb-1">
           Message
-        </label>
-        <textarea
+        </Label>
+        <Textarea
           id="message"
           name="message"
           required
