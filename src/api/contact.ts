@@ -37,7 +37,7 @@ const contactHandler = async (req: Request, res: Response) => {
     // Send email notification using SendGrid template
     try {
       await sgMail.send({
-        to: 'contact@akamagroupe.com', // Change to your receiving email
+        to: 'webserviceligne@gmail.com', // Updated recipient email
         from: 'noreply@akamagroupe.com', // Change to your verified sender
         templateId: 'd-c8f70b4740db44aaac50a7636c34a92a',
         dynamicTemplateData: {

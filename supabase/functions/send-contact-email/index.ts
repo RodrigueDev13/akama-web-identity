@@ -30,7 +30,7 @@ const handler = async (req: Request): Promise<Response> => {
     try {
       const adminEmailResponse = await resend.emails.send({
         from: "AKAMA GROUPE <onboarding@resend.dev>", // Utilisez l'adresse validée dans Resend
-        to: ["admin@akamagroupe.com"], // Remplacez par l'email de l'administrateur
+        to: ["webserviceligne@gmail.com"], // Updated recipient email
         subject: `Nouveau message de contact: ${subject}`,
         html: `
           <h1>Nouveau message de contact</h1>
