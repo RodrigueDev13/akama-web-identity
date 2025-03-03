@@ -1,11 +1,13 @@
 
-import { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/lib/prisma';
-import { verifyToken } from '@/lib/auth';
+import { Request, Response } from 'express';
+import { PrismaClient } from '@prisma/client';
+import { verifyToken } from '../../lib/auth';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+const prisma = new PrismaClient();
+
+export default async function handler(req: Request, res: Response) {
   // Verify authentication
-  const user = await verifyToken(req);
+  const user = await verifyToken(req.headers.authorization);
   if (!user) {
     return res.status(401).json({ message: 'Non autorisé' });
   }
