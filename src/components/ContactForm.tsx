@@ -24,15 +24,22 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulation d'envoi de message
-      // Attendre 1 seconde pour simuler l'envoi
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      console.log("Message qui serait envoyé:", formData);
+      // Send form data to the API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Échec de l\'envoi du message');
+      }
       
       toast({
         title: "Message envoyé",
-        description: "Dans une version finale, votre message serait envoyé. Nous vous répondrons dans les plus brefs délais.",
+        description: "Nous avons bien reçu votre message et vous répondrons dans les plus brefs délais.",
         variant: "default",
       });
       

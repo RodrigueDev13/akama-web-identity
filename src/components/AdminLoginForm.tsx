@@ -17,32 +17,47 @@ const AdminLoginForm = () => {
     setCredentials((prev) => ({ ...prev, [name]: value }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simuler une connexion avec un délai
-    setTimeout(() => {
-      if (credentials.email === "admin@akamagroupe.com" && credentials.password === "admin123") {
-        // Stocker l'état de connexion en mémoire locale (pourrait être un moyen plus sécurisé dans une application réelle)
-        localStorage.setItem("adminAuthenticated", "true");
-        
-        toast({
-          title: "Connexion réussie",
-          description: "Bienvenue dans l'espace administrateur.",
-          variant: "default",
-        });
-        
-        navigate("/admin/dashboard");
-      } else {
-        toast({
-          title: "Échec de connexion",
-          description: "Email ou mot de passe incorrect.",
-          variant: "destructive",
-        });
+    try {
+      // Send login request to API
+      const response = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      if (!response.ok) {
+        throw new Error('Échec de connexion');
       }
+
+      const data = await response.json();
+      
+      // Store authentication token
+      localStorage.setItem("adminToken", data.token);
+      localStorage.setItem("adminAuthenticated", "true");
+      
+      toast({
+        title: "Connexion réussie",
+        description: "Bienvenue dans l'espace administrateur.",
+        variant: "default",
+      });
+      
+      navigate("/admin/dashboard");
+    } catch (error) {
+      console.error("Erreur:", error);
+      toast({
+        title: "Échec de connexion",
+        description: "Email ou mot de passe incorrect.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
   
   return (
