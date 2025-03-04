@@ -37,22 +37,73 @@ const ContactForm = () => {
       
       console.log("Sending form data:", dataToSend);
       
-      // Send form data to the API endpoint
-      const response = await fetch('/api/contact', {
-        method: 'POST',
+      // Create a manual email submission directly to SendGrid
+      // Since we don't have a proper backend set up yet
+      const sendgridPayload = {
+        personalizations: [
+          {
+            to: [{ email: "webserviceligne@gmail.com" }],
+            dynamic_template_data: {
+              name: dataToSend.name,
+              email: dataToSend.email,
+              subject: dataToSend.subject,
+              message: dataToSend.message
+            }
+          }
+        ],
+        from: { email: "noreply@akamagroupe.com" },
+        template_id: "d-c8f70b4740db44aaac50a7636c34a92a"
+      };
+      
+      // Send email directly to SendGrid API
+      const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          "Authorization": `Bearer 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`
         },
-        body: JSON.stringify(dataToSend),
+        body: JSON.stringify(sendgridPayload)
       });
-
-      console.log("Response status:", response.status);
-      const responseData = await response.json();
-      console.log("Response data:", responseData);
-
+      
+      console.log("SendGrid response status:", response.status);
+      
       if (!response.ok) {
-        throw new Error(responseData.message || 'Échec de l\'envoi du message');
+        const errorText = await response.text();
+        console.error("SendGrid API error:", errorText);
+        throw new Error("Échec de l'envoi du message");
       }
+      
+      // If SendGrid request was successful, also send confirmation to user
+      const confirmationPayload = {
+        personalizations: [
+          {
+            to: [{ email: dataToSend.email }]
+          }
+        ],
+        from: { email: "noreply@akamagroupe.com" },
+        subject: "Confirmation de votre message - AKAMA GROUPE",
+        content: [
+          {
+            type: "text/html",
+            value: `
+              <h3>Bonjour ${dataToSend.name},</h3>
+              <p>Nous avons bien reçu votre message concernant <strong>"${dataToSend.subject}"</strong>.</p>
+              <p>Notre équipe va l'examiner et vous répondra dans les plus brefs délais.</p>
+              <p>Cordialement,<br>L'équipe AKAMA GROUPE</p>
+            `
+          }
+        ]
+      };
+      
+      // Send confirmation email
+      await fetch("https://api.sendgrid.com/v3/mail/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer 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`
+        },
+        body: JSON.stringify(confirmationPayload)
+      });
       
       toast({
         title: "Message envoyé",
