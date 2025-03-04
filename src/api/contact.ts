@@ -15,6 +15,8 @@ const contactHandler = async (req: Request, res: Response) => {
 
   try {
     const { name, email, subject, otherSubject, message } = req.body;
+    
+    console.log("Received contact form submission:", { name, email, subject, message });
 
     // Validation
     if (!name || !email || !subject || !message) {
@@ -33,10 +35,13 @@ const contactHandler = async (req: Request, res: Response) => {
         message
       }
     });
+    
+    console.log("Message saved to database with ID:", newMessage.id);
 
     // Send email notification using SendGrid template
     try {
-      await sgMail.send({
+      console.log("Sending email to admin via SendGrid");
+      const adminEmailResult = await sgMail.send({
         to: 'webserviceligne@gmail.com', // Updated recipient email
         from: 'noreply@akamagroupe.com', // Change to your verified sender
         templateId: 'd-c8f70b4740db44aaac50a7636c34a92a',
@@ -47,9 +52,11 @@ const contactHandler = async (req: Request, res: Response) => {
           message: message
         }
       });
+      console.log("Admin email sent successfully:", adminEmailResult);
       
       // Send confirmation email to the sender
-      await sgMail.send({
+      console.log("Sending confirmation email to user:", email);
+      const userEmailResult = await sgMail.send({
         to: email,
         from: 'noreply@akamagroupe.com',
         subject: 'Confirmation de votre message - AKAMA GROUPE',
@@ -69,15 +76,21 @@ const contactHandler = async (req: Request, res: Response) => {
           <p>Cordialement,<br>L'équipe AKAMA GROUPE</p>
         `,
       });
+      console.log("User confirmation email sent successfully:", userEmailResult);
     } catch (emailError) {
       console.error('Error sending email:', emailError);
-      // Continue execution, don't fail the request if email fails
+      // Don't fail the request if email sending fails
+      return res.status(200).json({ 
+        success: true, 
+        id: newMessage.id, 
+        warning: "Message saved but email notification failed"
+      });
     }
 
     return res.status(200).json({ success: true, id: newMessage.id });
   } catch (error) {
     console.error('Error in contact API:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json({ message: 'Internal server error', error: String(error) });
   }
 };
 

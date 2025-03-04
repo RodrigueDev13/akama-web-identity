@@ -35,6 +35,8 @@ const ContactForm = () => {
         subject: formData.subject === 'Autre' ? formData.otherSubject : formData.subject,
       };
       
+      console.log("Sending form data:", dataToSend);
+      
       // Send form data to the API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -44,8 +46,12 @@ const ContactForm = () => {
         body: JSON.stringify(dataToSend),
       });
 
+      console.log("Response status:", response.status);
+      const responseData = await response.json();
+      console.log("Response data:", responseData);
+
       if (!response.ok) {
-        throw new Error('Échec de l\'envoi du message');
+        throw new Error(responseData.message || 'Échec de l\'envoi du message');
       }
       
       toast({
