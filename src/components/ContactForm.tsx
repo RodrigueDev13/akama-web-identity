@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -43,24 +42,18 @@ const ContactForm = () => {
         personalizations: [
           {
             to: [{ email: "contact@akamagroupe.com" }],
-            subject: `Nouveau message: ${dataToSend.subject}`
+            subject: `Nouveau message: ${dataToSend.subject}`,
+            dynamic_template_data: {
+              subject: dataToSend.subject,
+              name: dataToSend.name,
+              email: dataToSend.email,
+              message: dataToSend.message.replace(/\n/g, '<br>')
+            }
           }
         ],
         from: { email: "noreply@akamagroupe.com", name: "Formulaire Site Web" },
         reply_to: { email: dataToSend.email, name: dataToSend.name },
-        content: [
-          {
-            type: "text/html",
-            value: `
-              <h2>Nouveau message depuis le formulaire de contact</h2>
-              <p><strong>Nom:</strong> ${dataToSend.name}</p>
-              <p><strong>Email:</strong> ${dataToSend.email}</p>
-              <p><strong>Sujet:</strong> ${dataToSend.subject}</p>
-              <p><strong>Message:</strong></p>
-              <p>${dataToSend.message.replace(/\n/g, '<br>')}</p>
-            `
-          }
-        ]
+        template_id: "d-c8f70b4740db44aaac50a7636c34a92a"
       };
       
       // Send to SendGrid API via CORS proxy
@@ -68,7 +61,7 @@ const ContactForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer SG.YOUR_SENDGRID_API_KEY" // Remplacez par votre clé API SendGrid
+          "Authorization": "Bearer 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"
         },
         body: JSON.stringify(sendgridPayload)
       });
@@ -85,22 +78,16 @@ const ContactForm = () => {
       const confirmationPayload = {
         personalizations: [
           {
-            to: [{ email: dataToSend.email }]
+            to: [{ email: dataToSend.email }],
+            dynamic_template_data: {
+              name: dataToSend.name,
+              subject: dataToSend.subject
+            }
           }
         ],
         from: { email: "noreply@akamagroupe.com", name: "AKAMA GROUPE" },
         subject: "Confirmation de votre message - AKAMA GROUPE",
-        content: [
-          {
-            type: "text/html",
-            value: `
-              <h3>Bonjour ${dataToSend.name},</h3>
-              <p>Nous avons bien reçu votre message concernant <strong>"${dataToSend.subject}"</strong>.</p>
-              <p>Notre équipe va l'examiner et vous répondra dans les plus brefs délais.</p>
-              <p>Cordialement,<br>L'équipe AKAMA GROUPE</p>
-            `
-          }
-        ]
+        template_id: "d-c8f70b4740db44aaac50a7636c34a92a"
       };
       
       // Send confirmation email
@@ -108,7 +95,7 @@ const ContactForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer SG.YOUR_SENDGRID_API_KEY" // Remplacez par votre clé API SendGrid
+          "Authorization": "Bearer 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"
         },
         body: JSON.stringify(confirmationPayload)
       });
