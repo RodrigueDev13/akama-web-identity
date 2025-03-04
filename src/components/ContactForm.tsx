@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,6 @@ import { Send } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { supabase } from "@/integrations/supabase/client";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -36,19 +36,82 @@ const ContactForm = () => {
         message: formData.message,
       };
       
-      console.log("Sending form data to Supabase function:", dataToSend);
+      console.log("Sending form data to SendGrid:", dataToSend);
       
-      // Use the Supabase function to send emails
-      const { data, error } = await supabase.functions.invoke('send-contact-email', {
-        body: dataToSend
+      // Create a SendGrid email payload
+      const sendgridPayload = {
+        personalizations: [
+          {
+            to: [{ email: "contact@akamagroupe.com" }],
+            subject: `Nouveau message: ${dataToSend.subject}`
+          }
+        ],
+        from: { email: "noreply@akamagroupe.com", name: "Formulaire Site Web" },
+        reply_to: { email: dataToSend.email, name: dataToSend.name },
+        content: [
+          {
+            type: "text/html",
+            value: `
+              <h2>Nouveau message depuis le formulaire de contact</h2>
+              <p><strong>Nom:</strong> ${dataToSend.name}</p>
+              <p><strong>Email:</strong> ${dataToSend.email}</p>
+              <p><strong>Sujet:</strong> ${dataToSend.subject}</p>
+              <p><strong>Message:</strong></p>
+              <p>${dataToSend.message.replace(/\n/g, '<br>')}</p>
+            `
+          }
+        ]
+      };
+      
+      // Send to SendGrid API via CORS proxy
+      const response = await fetch("https://cors-anywhere.herokuapp.com/https://api.sendgrid.com/v3/mail/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer SG.YOUR_SENDGRID_API_KEY" // Remplacez par votre clé API SendGrid
+        },
+        body: JSON.stringify(sendgridPayload)
       });
       
-      if (error) {
-        console.error("Supabase function error:", error);
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error("SendGrid API error:", errorData);
         throw new Error("Échec de l'envoi du message");
       }
       
-      console.log("Email sent successfully via Supabase function:", data);
+      console.log("Email sent successfully via SendGrid");
+      
+      // Send confirmation email to the user
+      const confirmationPayload = {
+        personalizations: [
+          {
+            to: [{ email: dataToSend.email }]
+          }
+        ],
+        from: { email: "noreply@akamagroupe.com", name: "AKAMA GROUPE" },
+        subject: "Confirmation de votre message - AKAMA GROUPE",
+        content: [
+          {
+            type: "text/html",
+            value: `
+              <h3>Bonjour ${dataToSend.name},</h3>
+              <p>Nous avons bien reçu votre message concernant <strong>"${dataToSend.subject}"</strong>.</p>
+              <p>Notre équipe va l'examiner et vous répondra dans les plus brefs délais.</p>
+              <p>Cordialement,<br>L'équipe AKAMA GROUPE</p>
+            `
+          }
+        ]
+      };
+      
+      // Send confirmation email
+      await fetch("https://cors-anywhere.herokuapp.com/https://api.sendgrid.com/v3/mail/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer SG.YOUR_SENDGRID_API_KEY" // Remplacez par votre clé API SendGrid
+        },
+        body: JSON.stringify(confirmationPayload)
+      });
       
       toast({
         title: "Message envoyé",
