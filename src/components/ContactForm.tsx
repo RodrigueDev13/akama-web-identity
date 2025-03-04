@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Send } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { supabase } from "@/integrations/supabase/client";
 
 const ContactForm = () => {
   const { toast } = useToast();
@@ -30,80 +30,25 @@ const ContactForm = () => {
     try {
       // Prepare data to send
       const dataToSend = {
-        ...formData,
-        // If subject is 'Autre', use the otherSubject field value
+        name: formData.name,
+        email: formData.email,
         subject: formData.subject === 'Autre' ? formData.otherSubject : formData.subject,
+        message: formData.message,
       };
       
-      console.log("Sending form data:", dataToSend);
+      console.log("Sending form data to Supabase function:", dataToSend);
       
-      // Create a manual email submission directly to SendGrid
-      // Since we don't have a proper backend set up yet
-      const sendgridPayload = {
-        personalizations: [
-          {
-            to: [{ email: "webserviceligne@gmail.com" }],
-            dynamic_template_data: {
-              name: dataToSend.name,
-              email: dataToSend.email,
-              subject: dataToSend.subject,
-              message: dataToSend.message
-            }
-          }
-        ],
-        from: { email: "noreply@akamagroupe.com" },
-        template_id: "d-c8f70b4740db44aaac50a7636c34a92a"
-      };
-      
-      // Send email directly to SendGrid API
-      const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer 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`
-        },
-        body: JSON.stringify(sendgridPayload)
+      // Use the Supabase function to send emails
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: dataToSend
       });
       
-      console.log("SendGrid response status:", response.status);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("SendGrid API error:", errorText);
+      if (error) {
+        console.error("Supabase function error:", error);
         throw new Error("Échec de l'envoi du message");
       }
       
-      // If SendGrid request was successful, also send confirmation to user
-      const confirmationPayload = {
-        personalizations: [
-          {
-            to: [{ email: dataToSend.email }]
-          }
-        ],
-        from: { email: "noreply@akamagroupe.com" },
-        subject: "Confirmation de votre message - AKAMA GROUPE",
-        content: [
-          {
-            type: "text/html",
-            value: `
-              <h3>Bonjour ${dataToSend.name},</h3>
-              <p>Nous avons bien reçu votre message concernant <strong>"${dataToSend.subject}"</strong>.</p>
-              <p>Notre équipe va l'examiner et vous répondra dans les plus brefs délais.</p>
-              <p>Cordialement,<br>L'équipe AKAMA GROUPE</p>
-            `
-          }
-        ]
-      };
-      
-      // Send confirmation email
-      await fetch("https://api.sendgrid.com/v3/mail/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer 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`
-        },
-        body: JSON.stringify(confirmationPayload)
-      });
+      console.log("Email sent successfully via Supabase function:", data);
       
       toast({
         title: "Message envoyé",
