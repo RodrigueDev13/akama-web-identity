@@ -7,7 +7,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -17,11 +17,29 @@ model Message {
   email     String
   subject   String
   message   String
-  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false) @map("is_read")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("messages")
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  category  String
+  status    String
+  authorId  String?  @map("author_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
+  @@map("posts")
 }
 
 model Admin {
   id       String @id @default(cuid())
   email    String @unique
   password String
+  
+  @@map("admins")
 }
