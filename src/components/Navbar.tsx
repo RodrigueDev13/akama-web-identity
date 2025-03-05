@@ -1,41 +1,25 @@
-
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
-  const NavItem = ({ to, label }: { to: string; label: string }) => (
-    <NavLink
-      to={to}
-      className={({ isActive }) => 
-        `relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-akama-red ${
-          isActive 
-            ? "text-akama-red" 
-            : "text-akama-dark"
-        }`
-      }
-      onClick={() => setIsMenuOpen(false)}
-    >
+  const NavItem = ({
+    to,
+    label
+  }: {
+    to: string;
+    label: string;
+  }) => <NavLink to={to} className={({
+    isActive
+  }) => `relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-akama-red ${isActive ? "text-akama-red" : "text-akama-dark"}`} onClick={() => setIsMenuOpen(false)}>
       {label}
       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-akama-red transition-all duration-300 group-hover:w-full" />
-    </NavLink>
-  );
-  
-  return (
-    <header 
-      className="fixed top-0 left-0 right-0 z-50 bg-transparent py-5"
-    >
+    </NavLink>;
+  return <header className="fixed top-0 left-0 right-0 z-50 py-5 bg-slate-50 rounded-md">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <NavLink to="/" className="flex items-center space-x-2">
-          <img 
-            src="/lovable-uploads/05e85c94-bcb4-478a-bd11-ac8046bbb068.png" 
-            alt="AKAMA GROUPE Logo" 
-            className="h-8 w-auto"
-          />
+          <img src="/lovable-uploads/05e85c94-bcb4-478a-bd11-ac8046bbb068.png" alt="AKAMA GROUPE Logo" className="h-8 w-auto" />
         </NavLink>
         
         {/* Desktop Navigation */}
@@ -49,22 +33,15 @@ const Navbar = () => {
         </nav>
         
         {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden flex items-center text-akama-dark" 
-          onClick={toggleMenu}
-          aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
-        >
+        <button className="md:hidden flex items-center text-akama-dark" onClick={toggleMenu} aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}>
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
       
       {/* Mobile Navigation */}
-      <div 
-        className={`fixed inset-0 bg-white z-40 transform transition-transform duration-300 ease-in-out ${
-          isMenuOpen ? "translate-x-0" : "translate-x-full"
-        } md:hidden`}
-        style={{ top: "60px" }}
-      >
+      <div className={`fixed inset-0 bg-white z-40 transform transition-transform duration-300 ease-in-out ${isMenuOpen ? "translate-x-0" : "translate-x-full"} md:hidden`} style={{
+      top: "60px"
+    }}>
         <nav className="flex flex-col items-center justify-center space-y-6 h-full">
           <NavItem to="/" label="Accueil" />
           <NavItem to="/history" label="Historique" />
@@ -74,8 +51,6 @@ const Navbar = () => {
           <NavItem to="/legal" label="Informations Légales" />
         </nav>
       </div>
-    </header>
-  );
+    </header>;
 };
-
 export default Navbar;
