@@ -16,7 +16,7 @@ const Navbar = () => {
       {label}
       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-akama-red transition-all duration-300 group-hover:w-full" />
     </NavLink>;
-  return <header className="fixed top-0 left-0 right-0 z-50 py-5 bg-slate-50 rounded-md">
+  return <header className="fixed top-0 left-0 right-0 z-50 py-5 bg-slate-50 rounded-none">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <NavLink to="/" className="flex items-center space-x-2">
           <img src="/lovable-uploads/05e85c94-bcb4-478a-bd11-ac8046bbb068.png" alt="AKAMA GROUPE Logo" className="h-8 w-auto" />
