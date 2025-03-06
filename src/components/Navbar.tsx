@@ -1,12 +1,9 @@
-
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-
   const NavItem = ({
     to,
     label
@@ -19,16 +16,10 @@ const Navbar = () => {
       {label}
       <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-akama-red transition-all duration-300 group-hover:w-full" />
     </NavLink>;
-
-  return <header className="fixed top-0 left-0 right-0 z-50 py-5 bg-transparent rounded-none">
+  return <header className="fixed top-0 left-0 right-0 z-50 py-5 bg-slate-50 rounded-none">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <NavLink to="/" className="flex items-center space-x-2">
-          <img 
-            src="/lovable-uploads/b5eeb353-031e-443a-8aad-38972cf669c3.png" 
-            alt="AKAMA GROUPE Logo" 
-            className="h-8 w-auto" 
-            style={{ filter: "drop-shadow(0px 0px 1px rgba(0,0,0,0.1))" }}
-          />
+          <img alt="AKAMA GROUPE Logo" className="h-8 w-auto" src="/lovable-uploads/b5eeb353-031e-443a-8aad-38972cf669c3.png" />
         </NavLink>
         
         {/* Desktop Navigation */}
@@ -62,5 +53,4 @@ const Navbar = () => {
       </div>
     </header>;
 };
-
 export default Navbar;
