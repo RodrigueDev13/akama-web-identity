@@ -19,7 +19,7 @@ const Navbar = () => {
   return <header className="fixed top-0 left-0 right-0 z-50 py-5 bg-slate-50 rounded-none">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <NavLink to="/" className="flex items-center space-x-2">
-          <img src="/lovable-uploads/05e85c94-bcb4-478a-bd11-ac8046bbb068.png" alt="AKAMA GROUPE Logo" className="h-8 w-auto" />
+          <img alt="AKAMA GROUPE Logo" className="h-8 w-auto" src="/lovable-uploads/b5eeb353-031e-443a-8aad-38972cf669c3.png" />
         </NavLink>
         
         {/* Desktop Navigation */}
