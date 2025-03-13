@@ -14,7 +14,7 @@ const Contact = () => {
   return (
     <PageLayout>
       {/* Header */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-akama-purple/10 to-white">
+      <section className="pt-32 pb-16 bg-gradient-to-b from-akama-light to-white">
         <div className="container mx-auto px-4">
           <AnimatedSection className="text-center max-w-3xl mx-auto">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 text-akama-dark">
@@ -41,8 +41,8 @@ const Contact = () => {
                 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-start">
-                    <div className="bg-akama-purple/10 p-3 rounded-lg mr-4">
-                      <MapPin size={24} className="text-akama-purple" />
+                    <div className="bg-akama-red/10 p-3 rounded-lg mr-4">
+                      <MapPin size={24} className="text-akama-red" />
                     </div>
                     <div>
                       <h3 className="text-lg font-medium mb-2 text-akama-dark">Adresse</h3>
@@ -57,18 +57,18 @@ const Contact = () => {
                 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-start">
-                    <div className="bg-akama-purple/10 p-3 rounded-lg mr-4">
-                      <Phone size={24} className="text-akama-purple" />
+                    <div className="bg-akama-red/10 p-3 rounded-lg mr-4">
+                      <Phone size={24} className="text-akama-red" />
                     </div>
                     <div>
                       <h3 className="text-lg font-medium mb-2 text-akama-dark">Téléphone</h3>
                       <p className="text-akama-gray mb-1">
-                        <a href="tel:+22500000000" className="hover:text-akama-purple transition-colors">
+                        <a href="tel:+22500000000" className="hover:text-akama-red transition-colors">
                           +225 00 00 00 00
                         </a>
                       </p>
                       <p className="text-akama-gray">
-                        <a href="tel:+22500000000" className="hover:text-akama-purple transition-colors">
+                        <a href="tel:+22500000000" className="hover:text-akama-red transition-colors">
                           +225 00 00 00 00
                         </a>
                       </p>
@@ -78,18 +78,18 @@ const Contact = () => {
                 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-start">
-                    <div className="bg-akama-purple/10 p-3 rounded-lg mr-4">
-                      <Mail size={24} className="text-akama-purple" />
+                    <div className="bg-akama-red/10 p-3 rounded-lg mr-4">
+                      <Mail size={24} className="text-akama-red" />
                     </div>
                     <div>
                       <h3 className="text-lg font-medium mb-2 text-akama-dark">Email</h3>
                       <p className="text-akama-gray mb-1">
-                        <a href="mailto:contact@akamagroupe.com" className="hover:text-akama-purple transition-colors">
+                        <a href="mailto:contact@akamagroupe.com" className="hover:text-akama-red transition-colors">
                           contact@akamagroupe.com
                         </a>
                       </p>
                       <p className="text-akama-gray">
-                        <a href="mailto:info@akamagroupe.com" className="hover:text-akama-purple transition-colors">
+                        <a href="mailto:info@akamagroupe.com" className="hover:text-akama-red transition-colors">
                           info@akamagroupe.com
                         </a>
                       </p>

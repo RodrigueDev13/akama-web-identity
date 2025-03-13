@@ -3,24 +3,16 @@ import { useEffect } from "react";
 import PageLayout from "@/layout/PageLayout";
 import HeroSection from "@/components/HeroSection";
 import AnimatedSection from "@/components/AnimatedSection";
+import ServiceDetailCard from "@/components/ServiceDetailCard";
 import { 
-  Monitor, 
-  Printer, 
-  GraduationCap, 
-  Video, 
-  LineChart, 
-  ShoppingBag, 
-  Zap, 
-  Tablet, 
-  BookOpen, 
-  Wrench, 
-  Building, 
-  Car 
+  Monitor, Printer, GraduationCap, Video, 
+  LineChart, Users, Truck, Network, 
+  HardDrive, Globe, PanelLeft, MessagesSquare 
 } from "lucide-react";
 
 const Services = () => {
   useEffect(() => {
-    document.title = "AKAMA GROUPE | Nos Services";
+    document.title = "AKAMA GROUPE | Services";
   }, []);
   
   return (
@@ -28,235 +20,145 @@ const Services = () => {
       {/* Hero Section */}
       <HeroSection
         title="Nos Services"
-        subtitle="Découvrez l'ensemble des solutions et prestations proposées par AKAMA GROUPE"
-        backgroundImage="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?q=80&w=2070&auto=format&fit=crop"
+        subtitle="Découvrez l'éventail complet de solutions proposées par AKAMA GROUPE"
+        backgroundImage="https://images.unsplash.com/photo-1661956602153-23384936a1d3?q=80&w=2070&auto=format&fit=crop"
       />
       
-      {/* Services Introduction */}
+      {/* Services Content */}
       <section className="section-padding">
         <div className="container mx-auto">
-          <AnimatedSection className="max-w-3xl mx-auto text-center mb-16">
-            <p className="text-akama-gray text-lg">
-              AKAMA GROUPE offre une gamme complète de services professionnels pour répondre à vos besoins
-              variés. Notre approche multidisciplinaire nous permet de vous proposer des solutions intégrées,
-              adaptées à vos exigences spécifiques.
+          <AnimatedSection className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-akama-dark">
+              Solutions Complètes et Personnalisées
+            </h2>
+            <p className="text-akama-gray max-w-3xl mx-auto">
+              AKAMA GROUPE propose une large gamme de services adaptés aux besoins des entreprises 
+              et des particuliers. Notre équipe d'experts vous accompagne dans tous vos projets.
             </p>
           </AnimatedSection>
           
-          {/* Informatique & Télécoms */}
+          {/* First Services Section - IT */}
           <div className="mb-20">
             <AnimatedSection>
-              <div className="flex items-center mb-6">
-                <Monitor size={28} className="text-akama-purple mr-3" />
-                <h2 className="text-2xl md:text-3xl font-serif font-bold text-akama-dark">
-                  Informatique & Télécoms
-                </h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Réseaux & Infrastructure</h3>
-                  <p className="text-akama-gray">
-                    Conception, installation et maintenance de réseaux informatiques sécurisés.
-                    Mise en place d'infrastructures serveurs et solutions cloud.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Maintenance Informatique</h3>
-                  <p className="text-akama-gray">
-                    Services de diagnostic, réparation et entretien préventif pour vos équipements.
-                    Support technique et assistance aux utilisateurs.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Développement Web</h3>
-                  <p className="text-akama-gray">
-                    Création de sites web, applications métier et solutions e-commerce.
-                    Optimisation SEO et maintenance de plateformes existantes.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Sécurité Informatique</h3>
-                  <p className="text-akama-gray">
-                    Protection de vos données et infrastructures contre les menaces numériques.
-                    Audits de sécurité et mise en place de solutions adaptées.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Télécommunications</h3>
-                  <p className="text-akama-gray">
-                    Solutions de téléphonie IP et VoIP pour entreprises.
-                    Installation et configuration de systèmes de communication unifiée.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Logiciels Spécialisés</h3>
-                  <p className="text-akama-gray">
-                    Implémentation et personnalisation de logiciels métier.
-                    Solutions ERP, CRM et gestion documentaire.
-                  </p>
-                </div>
-              </div>
+              <h3 className="text-2xl font-serif font-semibold mb-8 text-akama-dark inline-block px-3 py-1 rounded-lg bg-akama-red/10 text-akama-red">
+                Informatique & Télécoms
+              </h3>
             </AnimatedSection>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ServiceDetailCard
+                title="Réseaux & Sécurité"
+                description="Installation, configuration et maintenance de réseaux informatiques. Mise en place de solutions de sécurité adaptées à vos besoins pour protéger vos données et systèmes."
+                icon={<Network className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1486551937199-baf066858de7?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Maintenance Informatique"
+                description="Services complets de maintenance préventive et corrective pour tous vos équipements informatiques. Dépannage rapide et efficace sur site ou à distance."
+                icon={<HardDrive className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1610563166150-b34df4f3bcd6?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Développement Web"
+                description="Conception et développement de sites internet, applications web et plateformes e-commerce personnalisés et optimisés pour répondre à vos objectifs."
+                icon={<Globe className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1546900703-cf06143d1239?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Solutions Cloud"
+                description="Migration et gestion de vos infrastructures dans le cloud. Optimisation des ressources et réduction des coûts grâce à des solutions adaptées à vos besoins."
+                icon={<Monitor className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Systèmes d'Information"
+                description="Audit, conception et mise en place de systèmes d'information performants. Intégration de solutions logicielles adaptées à votre secteur d'activité."
+                icon={<PanelLeft className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Téléphonie & VoIP"
+                description="Installation et maintenance de systèmes de téléphonie IP. Solutions de communications unifiées pour améliorer la productivité et réduire les coûts."
+                icon={<MessagesSquare className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?q=80&w=1000&auto=format&fit=crop"
+              />
+            </div>
           </div>
           
-          {/* Imprimerie */}
-          <div className="mb-20">
-            <AnimatedSection>
-              <div className="flex items-center mb-6">
-                <Printer size={28} className="text-akama-purple mr-3" />
-                <h2 className="text-2xl md:text-3xl font-serif font-bold text-akama-dark">
-                  Imprimerie
-                </h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Impression Numérique</h3>
-                  <p className="text-akama-gray">
-                    Impression haute qualité de documents professionnels et marketing.
-                    Supports variés et finitions personnalisées.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Fabrication de Tampons</h3>
-                  <p className="text-akama-gray">
-                    Création de tampons personnalisés pour entreprises et administrations.
-                    Options de tampons automatiques, bois ou mécaniques.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Photocopies</h3>
-                  <p className="text-akama-gray">
-                    Services de reproduction de documents en noir et blanc ou couleur.
-                    Options grand volume et différents formats disponibles.
-                  </p>
-                </div>
-              </div>
-            </AnimatedSection>
-          </div>
-          
-          {/* Formation */}
-          <div className="mb-20">
-            <AnimatedSection>
-              <div className="flex items-center mb-6">
-                <GraduationCap size={28} className="text-akama-purple mr-3" />
-                <h2 className="text-2xl md:text-3xl font-serif font-bold text-akama-dark">
-                  Formation
-                </h2>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Formations Techniques</h3>
-                  <p className="text-akama-gray">
-                    Programmes de formation en réseaux, maintenance et administration systèmes.
-                    Certifications techniques reconnues.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Logiciels et Applications</h3>
-                  <p className="text-akama-gray">
-                    Maîtrise des logiciels bureautiques, professionnels et créatifs.
-                    Formation adaptée aux besoins spécifiques de votre équipe.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Design et Création</h3>
-                  <p className="text-akama-gray">
-                    Formations en design graphique, web design et outils créatifs.
-                    Développement de compétences multimédia.
-                  </p>
-                </div>
-              </div>
-            </AnimatedSection>
-          </div>
-          
-          {/* Autres Services */}
+          {/* Second Services Section - Other Services */}
           <div>
             <AnimatedSection>
-              <h2 className="text-2xl md:text-3xl font-serif font-bold text-akama-dark mb-8">
-                Autres Prestations
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <Video size={24} className="text-akama-purple mb-3" />
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Production Audiovisuelle</h3>
-                  <p className="text-akama-gray">
-                    Création de contenu vidéo professionnel pour entreprises.
-                    Services de montage, post-production et animation.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <LineChart size={24} className="text-akama-purple mb-3" />
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Études et Conseils</h3>
-                  <p className="text-akama-gray">
-                    Audits informatiques et analyses stratégiques.
-                    Recommandations et accompagnement dans votre transformation digitale.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <Building size={24} className="text-akama-purple mb-3" />
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Services Bâtiment</h3>
-                  <p className="text-akama-gray">
-                    Interventions et prestations dans le secteur du bâtiment.
-                    Solutions adaptées aux besoins de votre entreprise.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <Car size={24} className="text-akama-purple mb-3" />
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Location/Vente de Véhicules</h3>
-                  <p className="text-akama-gray">
-                    Services de location et vente de véhicules professionnels.
-                    Options flexibles adaptées à vos besoins.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <ShoppingBag size={24} className="text-akama-purple mb-3" />
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Vente de Matériel</h3>
-                  <p className="text-akama-gray">
-                    Fourniture d'équipements informatiques et bureautiques de qualité.
-                    Conseil personnalisé pour vos achats professionnels.
-                  </p>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                  <Wrench size={24} className="text-akama-purple mb-3" />
-                  <h3 className="text-xl font-medium mb-3 text-akama-dark">Services Sur Mesure</h3>
-                  <p className="text-akama-gray">
-                    Solutions personnalisées pour répondre à vos besoins spécifiques.
-                    Accompagnement de projets spéciaux et innovations.
-                  </p>
-                </div>
-              </div>
+              <h3 className="text-2xl font-serif font-semibold mb-8 text-akama-dark inline-block px-3 py-1 rounded-lg bg-akama-red/10 text-akama-red">
+                Autres Services
+              </h3>
             </AnimatedSection>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ServiceDetailCard
+                title="Imprimerie"
+                description="Services d'impression professionnels pour tous vos documents. Réalisation de tampons, affiches, flyers, brochures, cartes de visite et bien plus encore."
+                icon={<Printer className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1602628500546-3c95f0fde865?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Formation"
+                description="Formations spécialisées en informatique, réseaux, maintenance, logiciels et design graphique. Programmes adaptés aux besoins spécifiques de votre entreprise."
+                icon={<GraduationCap className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1562516710-59c668f7e851?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Production Audiovisuelle"
+                description="Création de contenu audiovisuel de qualité pour vos besoins professionnels. Réalisation de vidéos promotionnelles, films corporate et animations."
+                icon={<Video className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1601039829851-130abb83e4ed?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Études et Conseils"
+                description="Services de conseil en transformation numérique, optimisation des processus et intégration technologique. Audits et recommandations stratégiques."
+                icon={<LineChart className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Ressources Humaines"
+                description="Recrutement spécialisé en IT, formation et développement des compétences. Solutions de gestion des ressources humaines adaptées à votre structure."
+                icon={<Users className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop"
+              />
+              
+              <ServiceDetailCard
+                title="Logistique"
+                description="Services de transport et logistique pour vos équipements informatiques. Solutions de stockage et gestion de parc matériel sécurisées et fiables."
+                icon={<Truck className="text-akama-red" size={28} />}
+                image="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1000&auto=format&fit=crop"
+              />
+            </div>
           </div>
         </div>
       </section>
       
       {/* CTA Section */}
-      <section className="py-20 bg-akama-purple/10">
+      <section className="py-20 bg-akama-dark text-white">
         <div className="container mx-auto px-4">
-          <AnimatedSection className="max-w-3xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6 text-akama-dark">
-              Besoin d'un service spécifique ?
+          <AnimatedSection className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
+              Un projet en tête ?
             </h2>
-            <p className="text-akama-gray mb-8">
-              Nos équipes sont à votre disposition pour discuter de vos besoins particuliers et vous proposer des solutions adaptées.
+            <p className="text-white/80 mb-8 text-lg">
+              Notre équipe d'experts est prête à vous accompagner dans la réalisation de vos projets.
+              Contactez-nous dès aujourd'hui pour discuter de vos besoins spécifiques.
             </p>
             <a 
               href="/contact" 
-              className="inline-flex items-center px-8 py-3 rounded-lg bg-akama-purple text-white font-medium transition-all hover:bg-akama-purple/90 hover:shadow-lg hover:shadow-akama-purple/20"
+              className="inline-flex items-center px-8 py-4 rounded-full bg-akama-red text-white font-medium transition-all hover:bg-akama-red/90 hover:shadow-lg hover:shadow-akama-red/20 hover:-translate-y-1"
             >
               Demander un devis
             </a>
