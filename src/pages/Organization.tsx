@@ -164,6 +164,13 @@ const Organization = () => {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                  <div className="h-40 mb-4 overflow-hidden rounded-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop" 
+                      alt="Innovation" 
+                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
                   <h3 className="text-xl font-medium mb-3 text-akama-dark">Innovation</h3>
                   <p className="text-akama-gray">
                     Nous recherchons constamment de nouvelles approches et solutions pour répondre aux défis 
@@ -173,6 +180,13 @@ const Organization = () => {
                 </div>
                 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                  <div className="h-40 mb-4 overflow-hidden rounded-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=1000&auto=format&fit=crop" 
+                      alt="Excellence" 
+                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
                   <h3 className="text-xl font-medium mb-3 text-akama-dark">Excellence</h3>
                   <p className="text-akama-gray">
                     Nous nous engageons à fournir des services et produits de la plus haute qualité. 
@@ -182,6 +196,13 @@ const Organization = () => {
                 </div>
                 
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                  <div className="h-40 mb-4 overflow-hidden rounded-lg">
+                    <img 
+                      src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop" 
+                      alt="Intégrité" 
+                      className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
                   <h3 className="text-xl font-medium mb-3 text-akama-dark">Intégrité</h3>
                   <p className="text-akama-gray">
                     Nous agissons avec honnêteté, transparence et éthique dans toutes nos relations 
