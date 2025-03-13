@@ -1,32 +1,24 @@
-
 import { useEffect } from "react";
 import PageLayout from "@/layout/PageLayout";
 import HeroSection from "@/components/HeroSection";
 import AnimatedSection from "@/components/AnimatedSection";
 import { FileText, Code, Users, ShoppingBag, Lightbulb, Award, ShieldCheck } from "lucide-react";
-
 const Organization = () => {
   useEffect(() => {
     document.title = "AKAMA GROUPE | Organisation";
   }, []);
-  
-  return (
-    <PageLayout>
+  return <PageLayout>
       {/* Hero Section */}
-      <HeroSection
-        title="Notre Organisation"
-        subtitle="Découvrez la structure et les valeurs fondamentales d'AKAMA GROUPE"
-        backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
-      />
+      <HeroSection title="Notre Organisation" subtitle="Découvrez la structure et les valeurs fondamentales d'AKAMA GROUPE" backgroundImage="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop" />
       
       {/* Organization Content */}
-      <section className="section-padding bg-akama-light">
+      <section className="section-padding bg-slate-200">
         <div className="container mx-auto">
           <AnimatedSection className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-akama-dark">
               Structure Organisationnelle
             </h2>
-            <p className="text-akama-gray max-w-3xl mx-auto">
+            <p className="max-w-3xl mx-auto text-gray-800">
               AKAMA GROUPE s'organise autour de départements spécialisés permettant d'offrir 
               une gamme complète de services à nos clients tout en maintenant un niveau d'expertise élevé.
             </p>
@@ -46,11 +38,7 @@ const Organization = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-akama-red/30 transition-all hover:shadow-md">
                     <div className="h-40 mb-4 overflow-hidden rounded-lg">
-                      <img 
-                        src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop" 
-                        alt="Direction Administrative" 
-                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                      />
+                      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop" alt="Direction Administrative" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                     </div>
                     <div className="flex justify-center mb-4">
                       <div className="w-16 h-16 rounded-full bg-akama-red/10 flex items-center justify-center">
@@ -82,11 +70,7 @@ const Organization = () => {
                   
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-akama-red/30 transition-all hover:shadow-md">
                     <div className="h-40 mb-4 overflow-hidden rounded-lg">
-                      <img 
-                        src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1000&auto=format&fit=crop" 
-                        alt="Direction IT 01" 
-                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                      />
+                      <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1000&auto=format&fit=crop" alt="Direction IT 01" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                     </div>
                     <div className="flex justify-center mb-4">
                       <div className="w-16 h-16 rounded-full bg-akama-red/10 flex items-center justify-center">
@@ -118,11 +102,7 @@ const Organization = () => {
                   
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-akama-red/30 transition-all hover:shadow-md">
                     <div className="h-40 mb-4 overflow-hidden rounded-lg">
-                      <img 
-                        src="https://images.unsplash.com/photo-1581092921461-39b9feb08924?q=80&w=1000&auto=format&fit=crop" 
-                        alt="Direction IT 02" 
-                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                      />
+                      <img src="https://images.unsplash.com/photo-1581092921461-39b9feb08924?q=80&w=1000&auto=format&fit=crop" alt="Direction IT 02" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                     </div>
                     <div className="flex justify-center mb-4">
                       <div className="w-16 h-16 rounded-full bg-akama-red/10 flex items-center justify-center">
@@ -154,11 +134,7 @@ const Organization = () => {
                   
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-akama-red/30 transition-all hover:shadow-md">
                     <div className="h-40 mb-4 overflow-hidden rounded-lg">
-                      <img 
-                        src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop" 
-                        alt="Direction Commerciale" 
-                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                      />
+                      <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop" alt="Direction Commerciale" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                     </div>
                     <div className="flex justify-center mb-4">
                       <div className="w-16 h-16 rounded-full bg-akama-red/10 flex items-center justify-center">
@@ -197,7 +173,7 @@ const Organization = () => {
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-4 text-akama-dark">
               Nos Valeurs
             </h2>
-            <p className="text-akama-gray max-w-3xl mx-auto">
+            <p className="max-w-3xl mx-auto text-gray-900">
               Les valeurs qui guident chacune de nos actions et décisions, constituant 
               le fondement de notre culture d'entreprise et de notre engagement envers nos clients.
             </p>
@@ -207,11 +183,7 @@ const Organization = () => {
             <AnimatedSection delay={100}>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 h-full hover:border-akama-red/30 transition-all hover:shadow-md">
                 <div className="h-40 mb-4 overflow-hidden rounded-lg">
-                  <img 
-                    src="https://images.unsplash.com/photo-1677098544904-9063a4c51255?q=80&w=1000&auto=format&fit=crop" 
-                    alt="Innovation" 
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                  />
+                  <img src="https://images.unsplash.com/photo-1677098544904-9063a4c51255?q=80&w=1000&auto=format&fit=crop" alt="Innovation" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="flex justify-center my-4">
                   <div className="w-16 h-16 rounded-full bg-akama-red/10 flex items-center justify-center">
@@ -231,11 +203,7 @@ const Organization = () => {
             <AnimatedSection delay={200}>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 h-full hover:border-akama-red/30 transition-all hover:shadow-md">
                 <div className="h-40 mb-4 overflow-hidden rounded-lg">
-                  <img 
-                    src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=1000&auto=format&fit=crop" 
-                    alt="Excellence" 
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                  />
+                  <img src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=1000&auto=format&fit=crop" alt="Excellence" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="flex justify-center my-4">
                   <div className="w-16 h-16 rounded-full bg-akama-red/10 flex items-center justify-center">
@@ -255,11 +223,7 @@ const Organization = () => {
             <AnimatedSection delay={300}>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 h-full hover:border-akama-red/30 transition-all hover:shadow-md">
                 <div className="h-40 mb-4 overflow-hidden rounded-lg">
-                  <img 
-                    src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=1000&auto=format&fit=crop" 
-                    alt="Intégrité" 
-                    className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                  />
+                  <img src="https://images.unsplash.com/photo-1577563908411-5077b6dc7624?q=80&w=1000&auto=format&fit=crop" alt="Intégrité" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500" />
                 </div>
                 <div className="flex justify-center my-4">
                   <div className="w-16 h-16 rounded-full bg-akama-red/10 flex items-center justify-center">
@@ -280,7 +244,7 @@ const Organization = () => {
       </section>
       
       {/* CTA Section */}
-      <section className="py-20 bg-akama-dark text-white">
+      <section className="py-20 text-white bg-gray-800">
         <div className="container mx-auto px-4">
           <AnimatedSection className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif font-bold mb-6">
@@ -290,17 +254,12 @@ const Organization = () => {
               AKAMA GROUPE est toujours à la recherche de talents passionnés pour renforcer ses équipes.
               Découvrez nos opportunités de carrière et devenez membre de notre famille.
             </p>
-            <a 
-              href="/contact" 
-              className="inline-flex items-center px-8 py-4 rounded-full bg-akama-red text-white font-medium transition-all hover:bg-akama-red/90 hover:shadow-lg hover:shadow-akama-red/20 hover:-translate-y-1"
-            >
+            <a href="/contact" className="inline-flex items-center px-8 py-4 rounded-full bg-akama-red text-white font-medium transition-all hover:bg-akama-red/90 hover:shadow-lg hover:shadow-akama-red/20 hover:-translate-y-1">
               Nous contacter
             </a>
           </AnimatedSection>
         </div>
       </section>
-    </PageLayout>
-  );
+    </PageLayout>;
 };
-
 export default Organization;
