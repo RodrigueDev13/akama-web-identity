@@ -14,18 +14,18 @@ const Index = () => {
       <HeroSection title={<>Bienvenue chez <span className="text-akama-red">AKAMA GROUPE</span></>} subtitle="Nous accompagnons votre transformation numérique avec des solutions adaptées à vos besoins" buttonLabel="Découvrir nos services" buttonLink="#services" />
       
       {/* About Section */}
-      <section className="section-padding bg-akama-light" id="about">
+      <section id="about" className="section-padding bg-slate-300">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row gap-12 items-center">
             <div className="md:w-1/2">
               <AnimatedSection>
                 <h2 className="section-title mb-6">À propos d'AKAMA GROUPE</h2>
-                <p className="text-akama-gray mb-4">
+                <p className="mb-4 text-gray-800">
                   AKAMA GROUPE est une entreprise dynamique née de la transformation d'AKAMA INFORMATIQUE en 2016. 
                   Notre mission est de fournir des services de qualité dans divers domaines : informatique, 
                   télécommunications, imprimerie, formation et bien plus encore.
                 </p>
-                <p className="text-akama-gray mb-6">
+                <p className="mb-6 text-gray-800">
                   Fondée par de jeunes ingénieurs en 2011, notre société a évolué pour devenir un acteur 
                   incontournable du secteur technologique en Côte d'Ivoire, offrant des solutions innovantes 
                   et adaptées aux besoins de nos clients.
