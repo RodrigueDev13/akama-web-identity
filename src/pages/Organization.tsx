@@ -31,7 +31,7 @@ const Organization = () => {
                 <div className="flex justify-center mb-10">
                   <div className="text-center p-6 rounded-xl bg-akama-red/10 border border-akama-red/20 max-w-xs">
                     <h3 className="text-xl font-serif font-semibold text-akama-red mb-2">Direction Générale</h3>
-                    <p className="text-akama-gray">Supervision stratégique et coordination globale des activités</p>
+                    <p className="text-gray-500">Supervision stratégique et coordination globale des activités</p>
                   </div>
                 </div>
                 
@@ -51,19 +51,19 @@ const Organization = () => {
                     <ul className="text-akama-gray space-y-2 text-sm">
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Gestion administrative et financière</span>
+                        <span className="text-zinc-500">Gestion administrative et financière</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Ressources humaines</span>
+                        <span className="text-gray-500">Ressources humaines</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Comptabilité et facturation</span>
+                        <span className="text-gray-500">Comptabilité et facturation</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Affaires juridiques</span>
+                        <span className="text-gray-500">Affaires juridiques</span>
                       </li>
                     </ul>
                   </div>
@@ -83,19 +83,19 @@ const Organization = () => {
                     <ul className="text-akama-gray space-y-2 text-sm">
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Développement web et mobile</span>
+                        <span className="font-light text-gray-500">Développement web et mobile</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Solutions logicielles</span>
+                        <span className="text-gray-500">Solutions logicielles</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Intégration de systèmes</span>
+                        <span className="text-gray-500">Intégration de systèmes</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Innovation technologique</span>
+                        <span className="text-gray-500">Innovation technologique</span>
                       </li>
                     </ul>
                   </div>
@@ -115,19 +115,19 @@ const Organization = () => {
                     <ul className="text-akama-gray space-y-2 text-sm">
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Réseaux et télécommunications</span>
+                        <span className="text-gray-500">Réseaux et télécommunications</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Sécurité informatique</span>
+                        <span className="text-gray-500">Sécurité informatique</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Maintenance et support</span>
+                        <span className="text-gray-500">Maintenance et support</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Solutions cloud</span>
+                        <span className="text-gray-500">Solutions cloud</span>
                       </li>
                     </ul>
                   </div>
@@ -147,19 +147,19 @@ const Organization = () => {
                     <ul className="text-akama-gray space-y-2 text-sm">
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Ventes et développement commercial</span>
+                        <span className="text-gray-500">Ventes et développement commercial</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Marketing et communication</span>
+                        <span className="text-gray-500">Marketing et communication</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Relations clients</span>
+                        <span className="text-zinc-500">Relations clients</span>
                       </li>
                       <li className="flex items-start">
                         <span className="mr-2">•</span>
-                        <span>Gestion des projets spéciaux</span>
+                        <span className="text-zinc-500">Gestion des projets spéciaux</span>
                       </li>
                     </ul>
                   </div>
