@@ -1,15 +1,11 @@
-
 import { useEffect } from "react";
 import PageLayout from "@/layout/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
-
 const Legal = () => {
   useEffect(() => {
     document.title = "AKAMA GROUPE | Informations Légales";
   }, []);
-  
-  return (
-    <PageLayout>
+  return <PageLayout>
       {/* Header */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-akama-light to-white">
         <div className="container mx-auto px-4">
@@ -27,7 +23,7 @@ const Legal = () => {
           <div className="max-w-3xl mx-auto">
             <AnimatedSection className="mb-12">
               <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100">
-                <h2 className="text-2xl font-serif font-semibold text-akama-dark mb-6">
+                <h2 className="text-2xl font-serif font-semibold mb-6 text-red-800">
                   AKAMA GROUPE SARL
                 </h2>
                 <div className="space-y-4 text-akama-gray">
@@ -48,7 +44,7 @@ const Legal = () => {
             </AnimatedSection>
             
             <AnimatedSection>
-              <h2 className="text-2xl font-serif font-semibold text-akama-dark mb-6">
+              <h2 className="text-2xl font-serif font-semibold mb-6 text-red-800">
                 Mentions Légales
               </h2>
               
@@ -98,8 +94,6 @@ const Legal = () => {
           </div>
         </div>
       </section>
-    </PageLayout>
-  );
+    </PageLayout>;
 };
-
 export default Legal;
