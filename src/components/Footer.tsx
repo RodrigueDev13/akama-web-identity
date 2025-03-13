@@ -1,4 +1,3 @@
-
 import { NavLink } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
 
@@ -8,11 +7,11 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div className="space-y-4">
-            <div className="flex items-center">
+            <div className="flex items-center justify-center md:justify-start">
               <img 
                 src="/lovable-uploads/05e85c94-bcb4-478a-bd11-ac8046bbb068.png" 
                 alt="AKAMA GROUPE Logo" 
-                className="h-10 w-auto mr-2"
+                className="h-10 w-auto"
               />
             </div>
             <p className="text-akama-light-gray max-w-md">
