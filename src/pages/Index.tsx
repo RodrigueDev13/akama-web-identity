@@ -1,10 +1,13 @@
+
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import PageLayout from "@/layout/PageLayout";
 import HeroSection from "@/components/HeroSection";
 import AnimatedSection from "@/components/AnimatedSection";
 import ServiceCard from "@/components/ServiceCard";
+import PartnerLogos from "@/components/PartnerLogos";
 import { Monitor, Printer, GraduationCap, Video, LineChart, Users } from "lucide-react";
+
 const Index = () => {
   useEffect(() => {
     document.title = "AKAMA GROUPE | Accueil";
@@ -91,6 +94,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+      
+      {/* Partners Section */}
+      <PartnerLogos />
       
       {/* CTA Section */}
       <section className="py-20 text-white bg-gray-800">
