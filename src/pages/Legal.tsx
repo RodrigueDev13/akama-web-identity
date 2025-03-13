@@ -1,15 +1,11 @@
-
 import { useEffect } from "react";
 import PageLayout from "@/layout/PageLayout";
 import AnimatedSection from "@/components/AnimatedSection";
-
 const Legal = () => {
   useEffect(() => {
     document.title = "AKAMA GROUPE | Informations Légales";
   }, []);
-  
-  return (
-    <PageLayout>
+  return <PageLayout>
       {/* Header */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-akama-purple/10 to-white">
         <div className="container mx-auto px-4">
@@ -17,9 +13,7 @@ const Legal = () => {
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6 text-akama-dark">
               Informations Légales
             </h1>
-            <p className="text-akama-gray text-lg">
-              Retrouvez toutes les informations juridiques et réglementaires relatives à AKAMA GROUPE SARL.
-            </p>
+            
           </AnimatedSection>
         </div>
       </section>
@@ -40,15 +34,9 @@ const Legal = () => {
                   <p>
                     <strong className="text-akama-dark">Date de création :</strong> 2016 (transformation d'AKAMA INFORMATIQUE créée en 2011)
                   </p>
-                  <p>
-                    <strong className="text-akama-dark">Numéro de Registre du Commerce :</strong> RC-XXX-XXXX-X-XXXX
-                  </p>
-                  <p>
-                    <strong className="text-akama-dark">Numéro de Compte Contribuable :</strong> CC-XXXX-XXXX-XXXX
-                  </p>
-                  <p>
-                    <strong className="text-akama-dark">Capital social :</strong> X.XXX.XXX FCFA
-                  </p>
+                  
+                  
+                  
                   <p>
                     <strong className="text-akama-dark">Siège social :</strong> Cocody Centre, Abidjan, Côte d'Ivoire
                   </p>
@@ -110,8 +98,6 @@ const Legal = () => {
           </div>
         </div>
       </section>
-    </PageLayout>
-  );
+    </PageLayout>;
 };
-
 export default Legal;
