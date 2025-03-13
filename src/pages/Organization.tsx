@@ -45,6 +45,13 @@ const Organization = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-akama-purple/30 transition-all hover:shadow-md">
+                    <div className="h-40 mb-4 overflow-hidden rounded-lg">
+                      <img 
+                        src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop" 
+                        alt="Direction Administrative" 
+                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
                     <div className="flex justify-center mb-4">
                       <div className="w-16 h-16 rounded-full bg-akama-purple/10 flex items-center justify-center">
                         <FileText size={28} className="text-akama-purple" />
@@ -72,6 +79,13 @@ const Organization = () => {
                   </div>
                   
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-akama-purple/30 transition-all hover:shadow-md">
+                    <div className="h-40 mb-4 overflow-hidden rounded-lg">
+                      <img 
+                        src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1000&auto=format&fit=crop" 
+                        alt="Direction IT 01" 
+                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
                     <div className="flex justify-center mb-4">
                       <div className="w-16 h-16 rounded-full bg-akama-purple/10 flex items-center justify-center">
                         <Code size={28} className="text-akama-purple" />
@@ -99,6 +113,13 @@ const Organization = () => {
                   </div>
                   
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-akama-purple/30 transition-all hover:shadow-md">
+                    <div className="h-40 mb-4 overflow-hidden rounded-lg">
+                      <img 
+                        src="https://images.unsplash.com/photo-1581092921461-39b9feb08924?q=80&w=1000&auto=format&fit=crop" 
+                        alt="Direction IT 02" 
+                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
                     <div className="flex justify-center mb-4">
                       <div className="w-16 h-16 rounded-full bg-akama-purple/10 flex items-center justify-center">
                         <Users size={28} className="text-akama-purple" />
@@ -126,6 +147,13 @@ const Organization = () => {
                   </div>
                   
                   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:border-akama-purple/30 transition-all hover:shadow-md">
+                    <div className="h-40 mb-4 overflow-hidden rounded-lg">
+                      <img 
+                        src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop" 
+                        alt="Direction Commerciale" 
+                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
                     <div className="flex justify-center mb-4">
                       <div className="w-16 h-16 rounded-full bg-akama-purple/10 flex items-center justify-center">
                         <ShoppingBag size={28} className="text-akama-purple" />
