@@ -1,5 +1,4 @@
-# Welcome to your Lovable project
-
+# Welcome
 ## Project info
 
 Changes made via Lovable will be committed automatically to this repo.
